@@ -30,25 +30,81 @@ enum feed_type {
 
 using namespace std;
 
+enum feed_type type = FEED_TYPE_UNKNOWN;
 
 
+/**
+ * @brief prints the usage of the feedreader
+ * 
+ */
 void print_usage(){
     fprintf(stderr, "Usage: feedreader <URL | -f <feedfile>> [-c <certfile>] [-C <certaddr>] [-T] [-a] [-u]\n");
     exit(1);
 }
 
+/**
+ * @brief prints a message to stderr
+ * 
+ */
 void debug_print(const char *msg){
-    fprintf(stderr, "DEBUG> %s", msg);
+    fprintf(stderr, "DEBUG: %s", msg);
 }
 
+/**
+ * @brief prints an error message to stderr
+ * 
+ */
+void error_print(const char *msg){
+    fprintf(stderr, "Error: %s", msg);
+}
+
+/**
+ * @brief converts a node name from atom to rss (kind of a dictionary)
+ * 
+ * @param atom_name the name of the node in atom
+ * @return const char* the name of the node in rss
+ */
+const char* atom_to_rss(const char *atom_name){
+    if(!strcmp(atom_name,"feed"))
+        return "channel";
+    else if(!strcmp(atom_name,"published"))
+        return "pubDate";
+    else if(!strcmp(atom_name,"entry"))
+        return "item";
+    else return atom_name;
+}
+
+/**
+ * @brief compares the name of the given node to the provided name
+ * 
+ * @param node the node to compare
+ * @param name what the name should be
+ * @return true if the name is the same
+ */
+bool check_node_name(xmlNode *node, const char *name){
+    if(type == FEED_TYPE_RSS)
+        return !strcmp((const char*)node->name, atom_to_rss(name));
+    else if(type == FEED_TYPE_ATOM)
+        return !strcmp((const char*)node->name, name);
+    
+    return false;
+
+    // return (xmlStrcmp(node->name, (const xmlChar *)name) == 0);
+}
+
+/**
+ * @brief Prints the author node
+ * 
+ * @param node the author node to print
+ */
 void print_author_node(xmlNode *node){
     xmlNode *cur_node = NULL;
     for (cur_node = node; cur_node; cur_node = cur_node->next) {
         if (cur_node->type == XML_ELEMENT_NODE) {
-            if (strcmp((char *)cur_node->name, "name") == 0){
-                printf("Author name:  %s ", xmlNodeGetContent(cur_node));
+            if (check_node_name(cur_node, "author")) {
+                printf("Author name:  %s\n", xmlNodeGetContent(cur_node));
             }
-            if (strcmp((char *)cur_node->name, "email") == 0){
+            if (check_node_name(cur_node, "email")) {
                 printf("Author email: %s\n", xmlNodeGetContent(cur_node));
             }else{
                 printf("\n");
@@ -57,36 +113,42 @@ void print_author_node(xmlNode *node){
     }
 }
 
+/**
+ * @brief Prints the content of an entry or item node (one article) 
+ * 
+ * @param item the node to print
+ * @param showTime
+ * @param showAuthor 
+ * @param showUrls 
+ */
 void parse_item(xmlNode *item,bool showTime,bool showAuthor,bool showUrls){
 
     for(xmlNode *cur_node = item->children; cur_node; cur_node = cur_node->next){
-            if(!strcmp((char*)cur_node->name, "title")){
+            if(check_node_name(cur_node,"title")){
                 printf("%s\n", xmlNodeGetContent(cur_node));
             }
-            else if(!strcmp((char*)cur_node->name, "link")){
+            else if(check_node_name(cur_node,"link")){
                 if(showUrls){
-                    xmlChar *href = xmlGetProp(cur_node, (const xmlChar *)"href");
-                    printf("URL: %s\n", href);
+                    if(type == FEED_TYPE_ATOM){
+                        printf("URL: %s\n", xmlGetProp(cur_node, (const xmlChar *)"href"));
+                    }
+                    else if(type == FEED_TYPE_RSS){
+                        printf("URL: %s\n", xmlNodeGetContent(cur_node));
+                    }
                 }
             }
-            else if(!strcmp((char*)cur_node->name, "published")){
+            else if(check_node_name(cur_node,"published")){
                 if(showTime){
                     printf("Aktualizace: %s\n", xmlNodeGetContent(cur_node));
                 }
             }
-            else if(!strcmp((char*)cur_node->name, "author")){
+            else if(check_node_name(cur_node,"author")){
                 if(showAuthor){
                     print_author_node(cur_node->children);
                 }
             }
-            // else if(!strcmp((char*)cur_node->name, "description")){
-            //     printf("%s\n", xmlNodeGetContent(cur_node));
-            // }
     }
-
-    if(showTime || showAuthor || showUrls){
-        printf("\n");
-    }
+    printf("\n");
 }
 
 int main(int argc, char const *argv[])
@@ -103,6 +165,9 @@ int main(int argc, char const *argv[])
 
     bool isUrl = false;
     string location = "";
+
+    string certfile = "";
+    string certaddr = "";
 
     if(argc < 2 ){
         fprintf(stderr, "Error: No URL or file specified.\n");
@@ -141,10 +206,18 @@ int main(int argc, char const *argv[])
             switch (arg[1])
             {
             case 'c':
-                fprintf(stdout, "certfile: %s\n", argv[i+1]);
+                if(argc < i+2){
+                    error_print("No certfile specified\n");
+                    print_usage();
+                }
+                certfile = argv[i+1];
                 break;
             case 'C':
-                fprintf(stdout, "certaddr: %s\n", argv[i+1]);
+                if(argc < i+2){
+                    error_print("No certaddr specified\n");
+                    print_usage();
+                }
+                certaddr = argv[i+1];
                 break;
             case 'T':
                 fprintf(stdout, "T\n");
@@ -168,15 +241,13 @@ int main(int argc, char const *argv[])
     }
 
     /*
-        Parsing feed
+        Starting to parse the feed
     */
 
     xmlDoc *doc = NULL;
     xmlNode *root = NULL;
 
     LIBXML_TEST_VERSION
-
-    enum feed_type type = FEED_TYPE_UNKNOWN;
 
 
     if(isUrl){
@@ -196,9 +267,30 @@ int main(int argc, char const *argv[])
             exit(1);
         }
 
+        /*
+            Checking if the file is a valid feed
+            Determining the type of the feed
+        */
         if(xmlStrcmp(root->name, (const xmlChar *) "rss") == 0){
             fprintf(stderr, "Feed type: RSS\n");
             type = FEED_TYPE_RSS;
+
+            //set root to channel
+            // root = root->children;
+            for (root = root->children; root; root = root->next) {
+                if (root->type == XML_ELEMENT_NODE) {
+                    if (check_node_name(root, "channel")) {
+                        break;
+                    }
+                }
+            }
+
+            if(root == NULL){
+                fprintf(stderr, "Error: Could not find channel element in file %s\n", argv[2]);
+                exit(1);
+            }
+
+            // fprintf(stderr,"root->name: %s\n", root->name);
         }
         else if(xmlStrcmp(root->name, (const xmlChar *) "feed") == 0){
             fprintf(stderr, "Feed type: Atom\n");
@@ -209,17 +301,18 @@ int main(int argc, char const *argv[])
             exit(1);
         }
 
-
+        /*
+            Parsing the feed
+        */
         xmlNode *cur_node = NULL;
 
         for(cur_node = root->children; cur_node; cur_node = cur_node->next){
             if(cur_node->type == XML_ELEMENT_NODE){
-
-                if(strcmp("title", (const char *) cur_node->name) == 0){
+                if(check_node_name(cur_node, "title")){
                     printf("*** %s ***\n", cur_node->children->content);
                 }
 
-                if(strcmp("entry", (const char *) cur_node->name) == 0){
+                if(check_node_name(cur_node, "entry")){
                     parse_item(cur_node, showTime, showAuthor, showUrls);
                 }
             }
