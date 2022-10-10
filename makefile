@@ -1,18 +1,12 @@
-# the compiler: gcc for C program, define as g++ for C++
-CC = gcc
-
-# compiler flags:
-#  -g     - this flag adds debugging information to the executable file
-#  -Wall  - this flag is used to turn on most compiler warnings
-CFLAGS  = -g -Wall
-
-# The build target 
+#makefile for c++ project with libxml2
+CC = g++
+CFLAGS = -g -Wall -I/usr/include/libxml2
+LDFLAGS = -lxml2
+OBJS = main.o
 TARGET = main
-
-all: $(TARGET)
-
-$(TARGET): $(TARGET).cpp
-			$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).cpp
-
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS)
+main.o: main.cpp
+	$(CC) $(CFLAGS) -c main.cpp
 clean:
-			$(RM) $(TARGET)
+	rm -f $(OBJS) $(TARGET)
