@@ -5,33 +5,18 @@
 #include <stdbool.h>
 #include <cstring>
 
-#include <openssl/x509v3.h> //x509 implementation for compatibility
-#include <openssl/bn.h> // 
-#include <openssl/asn1.h>
-#include <openssl/x509.h> // x509 implementation
-#include <openssl/x509_vfy.h> 
-#include <openssl/pem.h> // for reading certificates & keys
-#include <openssl/bio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
-#include <libxml/parser.h>
-#include <libxml/tree.h>
-// #include <libxml/xmlschemas.h>
-// #include <libxml/xmlschemastypes.h>
-// #include <libxml/xmlIO.h>
-// #include <libxml/xmlmemory.h>
-// #include <libxml/xmlstring.h>
-// #include <libxml/xmlreader.h>
+#include <filesystem>
 
-enum feed_type { 
-    FEED_TYPE_UNKNOWN = 0,
-    FEED_TYPE_RSS = 1,
-    FEED_TYPE_ATOM = 2
-};
+
+#include "downloader.hpp"
+#include "parser.hpp"
+
 
 using namespace std;
-
-enum feed_type type = FEED_TYPE_UNKNOWN;
-
 
 /**
  * @brief prints the usage of the feedreader
@@ -56,109 +41,18 @@ void debug_print(const char *msg){
  */
 void error_print(const char *msg){
     fprintf(stderr, "Error: %s", msg);
-}
-
-/**
- * @brief converts a node name from atom to rss (kind of a dictionary)
- * 
- * @param atom_name the name of the node in atom
- * @return const char* the name of the node in rss
- */
-const char* atom_to_rss(const char *atom_name){
-    if(!strcmp(atom_name,"feed"))
-        return "channel";
-    else if(!strcmp(atom_name,"published"))
-        return "pubDate";
-    else if(!strcmp(atom_name,"entry"))
-        return "item";
-    else return atom_name;
-}
-
-/**
- * @brief compares the name of the given node to the provided name
- * 
- * @param node the node to compare
- * @param name what the name should be
- * @return true if the name is the same
- */
-bool check_node_name(xmlNode *node, const char *name){
-    if(type == FEED_TYPE_RSS)
-        return !strcmp((const char*)node->name, atom_to_rss(name));
-    else if(type == FEED_TYPE_ATOM)
-        return !strcmp((const char*)node->name, name);
-    
-    return false;
-
-    // return (xmlStrcmp(node->name, (const xmlChar *)name) == 0);
-}
-
-/**
- * @brief Prints the author node
- * 
- * @param node the author node to print
- */
-void print_author_node(xmlNode *node){
-    xmlNode *cur_node = NULL;
-    for (cur_node = node; cur_node; cur_node = cur_node->next) {
-        if (cur_node->type == XML_ELEMENT_NODE) {
-            if (check_node_name(cur_node, "author")) {
-                printf("Author name:  %s\n", xmlNodeGetContent(cur_node));
-            }
-            if (check_node_name(cur_node, "email")) {
-                printf("Author email: %s\n", xmlNodeGetContent(cur_node));
-            }else{
-                printf("\n");
-            }
-        }
-    }
-}
-
-/**
- * @brief Prints the content of an entry or item node (one article) 
- * 
- * @param item the node to print
- * @param showTime
- * @param showAuthor 
- * @param showUrls 
- */
-void parse_item(xmlNode *item,bool showTime,bool showAuthor,bool showUrls){
-
-    for(xmlNode *cur_node = item->children; cur_node; cur_node = cur_node->next){
-            if(check_node_name(cur_node,"title")){
-                printf("%s\n", xmlNodeGetContent(cur_node));
-            }
-            else if(check_node_name(cur_node,"link")){
-                if(showUrls){
-                    if(type == FEED_TYPE_ATOM){
-                        printf("URL: %s\n", xmlGetProp(cur_node, (const xmlChar *)"href"));
-                    }
-                    else if(type == FEED_TYPE_RSS){
-                        printf("URL: %s\n", xmlNodeGetContent(cur_node));
-                    }
-                }
-            }
-            else if(check_node_name(cur_node,"published")){
-                if(showTime){
-                    printf("Aktualizace: %s\n", xmlNodeGetContent(cur_node));
-                }
-            }
-            else if(check_node_name(cur_node,"author")){
-                if(showAuthor){
-                    print_author_node(cur_node->children);
-                }
-            }
-    }
-    printf("\n");
+    exit(1);
 }
 
 int main(int argc, char const *argv[])
 {
+    // namespace fs = std::filesystem;
 
     /*
         Parsing command line arguments
     */
 
-
+    const char *download_location = "./temp";
     bool showTime = false;
     bool showAuthor = false;
     bool showUrls = false;
@@ -220,15 +114,12 @@ int main(int argc, char const *argv[])
                 certaddr = argv[i+1];
                 break;
             case 'T':
-                fprintf(stdout, "T\n");
                 showTime = true;
                 break;
             case 'a':
-                fprintf(stdout, "a\n");
                 showAuthor = true;
                 break;
             case 'u':
-                fprintf(stdout, "u\n");
                 showUrls = true;
                 break;
             case 'f':
@@ -240,87 +131,47 @@ int main(int argc, char const *argv[])
         }
     }
 
+    struct stat info;
+    
+    if( stat( download_location, &info ) != 0 ){
+        int check = mkdir(download_location,0777);
+        // check == 0 if directory is created
+        if(check){
+            printf("Unable to create directory\n");
+            exit(2);
+        }
+    }
+    else if( info.st_mode & S_IFDIR ){ 
+        
+    }
+    else{
+        printf( "%s is no directory\n", download_location );
+        exit(2);
+    }
+
+
     /*
         Starting to parse the feed
     */
-
-    xmlDoc *doc = NULL;
-    xmlNode *root = NULL;
-
-    LIBXML_TEST_VERSION
-
-
     if(isUrl){
         fprintf(stderr, "Reading from url %s\n", argv[1]);
-        doc = xmlReadFile(location.c_str(), NULL, 0);
-    }
-    else{
-        fprintf(stderr, "Reading from file %s\n", argv[2]);
-        if((doc = xmlReadFile(location.c_str(), NULL, 0)) == NULL){
-            fprintf(stderr, "Error: Could not open file %s\n", argv[2]);
-            exit(1);
-        }
 
-        root = xmlDocGetRootElement(doc);
-        if(root == NULL){
-            fprintf(stderr, "Error: Could not get root element from file %s\n", argv[2]);
-            exit(1);
-        }
+        struct url url_location = parse_url(location);
 
-        /*
-            Checking if the file is a valid feed
-            Determining the type of the feed
-        */
-        if(xmlStrcmp(root->name, (const xmlChar *) "rss") == 0){
-            fprintf(stderr, "Feed type: RSS\n");
-            type = FEED_TYPE_RSS;
+        string filename = download_location + string("/") + url_location.host + ".xml";
 
-            //set root to channel
-            // root = root->children;
-            for (root = root->children; root; root = root->next) {
-                if (root->type == XML_ELEMENT_NODE) {
-                    if (check_node_name(root, "channel")) {
-                        break;
-                    }
-                }
-            }
+        if(url_location.is_https)
+            download_https_feed(url_location, filename, certfile, certaddr);
+        else
+            download_http_feed(url_location, filename);
 
-            if(root == NULL){
-                fprintf(stderr, "Error: Could not find channel element in file %s\n", argv[2]);
-                exit(1);
-            }
-
-            // fprintf(stderr,"root->name: %s\n", root->name);
-        }
-        else if(xmlStrcmp(root->name, (const xmlChar *) "feed") == 0){
-            fprintf(stderr, "Feed type: Atom\n");
-            type = FEED_TYPE_ATOM;
-        }
-        else{
-            fprintf(stderr, "Error: Unknown feed type\n");
-            exit(1);
-        }
-
-        /*
-            Parsing the feed
-        */
-        xmlNode *cur_node = NULL;
-
-        for(cur_node = root->children; cur_node; cur_node = cur_node->next){
-            if(cur_node->type == XML_ELEMENT_NODE){
-                if(check_node_name(cur_node, "title")){
-                    printf("*** %s ***\n", cur_node->children->content);
-                }
-
-                if(check_node_name(cur_node, "entry")){
-                    parse_item(cur_node, showTime, showAuthor, showUrls);
-                }
-            }
-        }
+        parse_news_feed_file(filename, showTime, showAuthor, showUrls);
+    }else{
 
     }
-
-
+    
+    
+    
 
     return 0;
 }
