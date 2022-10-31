@@ -1,6 +1,8 @@
 #include "downloader.hpp"
 
 void download_https_feed(struct url url, string filename,  string certfile, string certaddr){
+    // fprintf(stderr, "Downloading https feed\n");
+
     if(!url.is_https)
         fprintf(stderr, "Warning: feed is not served over HTTPS\n");
 
@@ -66,7 +68,7 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
 
     //new file pointer
     out = BIO_new_file(filename.c_str(), "w");
-    if(!(NULL != out)) download_error_print("SSL/TLS failed, BIO_new_fp...");
+    if(!(NULL != out)) download_error_print("SSL/TLS failed, BIO_new_fp... (%s)");
 
     res = BIO_do_connect(web);
     if(!(1 == res)) download_error_print("SSL/TLS failed, BIO_do_connect...");
@@ -87,9 +89,15 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     /* Step 3: hostname verification */
     /* An exercise left to the reader */
 
-    BIO_puts(web, ("GET " + url.resource + " HTTP/1.1\r\n"
+    // fprintf(stderr,"Requesting resource: %s\n",url.resource.c_str());
+
+    string request = ("GET /" + url.resource + " HTTP/1.0\r\n"
               "Host: " + url.host + "\r\n"
-              "Connection: close\r\n\r\n").c_str());
+              "Connection: close\r\n\r\n");
+
+    // fprintf(stderr, "Request: %s", request.c_str());
+
+    BIO_puts(web, request.c_str());
     // BIO_puts(out, "\n");
 
     bool in_header = true;
@@ -128,7 +136,8 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
 
 
 void download_http_feed(struct url url, string filename){
-    
+    // fprintf(stderr, "Downloading http feed \n");
+
     BIO *web = NULL, *out = NULL;
     long res = 1;
 
@@ -141,10 +150,14 @@ void download_http_feed(struct url url, string filename){
     out = BIO_new_file(filename.c_str(), "w");
     if(!(NULL != out)) download_error_print("HTTP failed, BIO_new_fp...");
 
-    BIO_puts(web, ("GET " + url.resource + " HTTP/1.1\r\n"
-              "Host: " + url.host + "\r\n"
-              "Connection: close\r\n\r\n").c_str());
+    BIO_puts(web, ("GET /" + url.resource + " HTTP/1.0\r\n"
+              +"Host: " + url.host + "\r\n"
+              +"Connection: close\r\n\r\n").c_str());
     // BIO_puts(out, "\n");
+
+    // fprintf(stderr, "Requesting HTTP: %s\n", ("GET /" + url.resource + " HTTP/1.0\r\n"
+    //           "Host: " + url.host + "\r\n"
+    //           "Connection: close\r\n\r\n").c_str());
 
     bool in_header = true;
     int len = 0;
@@ -153,7 +166,6 @@ void download_http_feed(struct url url, string filename){
     {
         char buff[2048] = {};
         len = BIO_read(web, buff, sizeof(buff));
-        
         if(len > 0){
             if(in_header){
                 string header(buff);
@@ -179,7 +191,7 @@ void download_http_feed(struct url url, string filename){
 }
 
 void download_error_print (const char *msg){
-    fprintf(stderr, "Error: %s", msg);
+    fprintf(stderr, "Download error: %s", msg);
     exit(1);
 }
 
@@ -188,19 +200,21 @@ struct url parse_url(string url) {
     string host;
     string port;
     string resource;
+    bool is_https = false;
     size_t pos = url.find("://");
     
     // check if https or http
     if (pos != string::npos) {
         if (url.substr(0, pos) == "https") {
-            parsed_url.is_https = true;
-        } else {
-            parsed_url.is_https = false;
+            is_https = true;
+        } else if (url.substr(0, pos) == "http") {
+            is_https = false;
+        }else{
+            download_error_print("Invalid protocol");
         }
     } else {
-        parsed_url.is_https = false;
+        is_https = false;
     }
-    
 
     if (pos != string::npos) {
         url = url.substr(pos + 3);
@@ -218,14 +232,17 @@ struct url parse_url(string url) {
         port = host.substr(pos + 1);
         host = host.substr(0, pos);
     } else {
-        if (parsed_url.is_https) {
+        if (is_https) {
             port = "443";
         } else {
             port = "80";
         }
     }
+    fprintf(stderr,"resource: %s\n",resource.c_str());
     parsed_url.host = host;
     parsed_url.port = port;
     parsed_url.resource = resource;
+    parsed_url.is_https = is_https;
+
     return parsed_url;
 }

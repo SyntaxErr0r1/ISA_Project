@@ -2,3 +2,4 @@ main
 *.o
 samples/
 temp/
+out

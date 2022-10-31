@@ -4,7 +4,7 @@
 feed_type get_feed_type(xmlNode *root){
     feed_type type = FEED_TYPE_UNKNOWN;
     if(xmlStrcmp(root->name, (const xmlChar *) "rss") == 0){
-        fprintf(stderr, "Feed type: RSS\n");
+        // fprintf(stderr, "Feed type: RSS\n");
         type = FEED_TYPE_RSS;
 
         if(root == NULL){
@@ -15,7 +15,7 @@ feed_type get_feed_type(xmlNode *root){
         // fprintf(stderr,"root->name: %s\n", root->name);
     }
     else if(xmlStrcmp(root->name, (const xmlChar *) "feed") == 0){
-        fprintf(stderr, "Feed type: Atom\n");
+        // fprintf(stderr, "Feed type: Atom\n");
         type = FEED_TYPE_ATOM;
     }
     else{
@@ -82,13 +82,13 @@ void print_author_node(feed_type type, xmlNode *node){
     xmlNode *cur_node = NULL;
     for (cur_node = node; cur_node; cur_node = cur_node->next) {
         if (cur_node->type == XML_ELEMENT_NODE) {
-            if (check_node_name(type, cur_node, "author")) {
+            if (check_node_name(type, cur_node, "name")) {
                 printf("Author name:  %s\n", xmlNodeGetContent(cur_node));
             }
             if (check_node_name(type, cur_node, "email")) {
                 printf("Author email: %s\n", xmlNodeGetContent(cur_node));
             }else{
-                printf("\n");
+                // printf("\n");
             }
         }
     }
@@ -103,7 +103,6 @@ void print_author_node(feed_type type, xmlNode *node){
  * @param showUrls 
  */
 void parse_item(feed_type type, xmlNode *item, bool showTime,bool showAuthor,bool showUrls){
-
     for(xmlNode *cur_node = item->children; cur_node; cur_node = cur_node->next){
             if(check_node_name(type, cur_node,"title")){
                 printf("%s\n", xmlNodeGetContent(cur_node));
@@ -156,7 +155,7 @@ void parse_news_feed_file(std::string location, bool showTime,bool showAuthor,bo
 
     LIBXML_TEST_VERSION
 
-    fprintf(stderr, "Reading from file %s\n", location.c_str());
+    // fprintf(stderr, "Reading from file %s\n", location.c_str());
     if((doc = xmlReadFile(location.c_str(), NULL, 0)) == NULL){
         fprintf(stderr, "Error: Could not open file %s\n", location.c_str());
         exit(1);

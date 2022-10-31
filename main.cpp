@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <stdbool.h>
@@ -17,6 +18,8 @@
 
 
 using namespace std;
+
+#define DOWNLOAD_DIR "temp/"
 
 /**
  * @brief prints the usage of the feedreader
@@ -44,6 +47,20 @@ void error_print(const char *msg){
     exit(1);
 }
 
+void read_from_url(const char* url_add, std::string certfile, std::string certaddr, bool showTime, bool showAuthor, bool showUrls){
+    struct url url_location = parse_url(url_add);
+
+    // string filename = DOWNLOAD_DIR + url_location.host + ".xml";
+    string filename ="temp/temp.xml";
+
+    if(url_location.is_https)
+        download_https_feed(url_location, filename, certfile, certaddr);
+    else
+        download_http_feed(url_location, filename);
+
+    parse_news_feed_file(filename, showTime, showAuthor, showUrls);
+}
+
 int main(int argc, char const *argv[])
 {
     // namespace fs = std::filesystem;
@@ -57,11 +74,13 @@ int main(int argc, char const *argv[])
     bool showAuthor = false;
     bool showUrls = false;
 
-    bool isUrl = false;
+    bool isSingleUrl = false;
     string location = "";
 
     string certfile = "";
     string certaddr = "";
+
+    FILE *fp = NULL;
 
     if(argc < 2 ){
         fprintf(stderr, "Error: No URL or file specified.\n");
@@ -73,12 +92,13 @@ int main(int argc, char const *argv[])
             fprintf(stderr,"char: %c\n",argv[1][1]);
             print_usage();
         }
-        // read from file
+
+        // try to open and read from the file
         if(argc < 3){
             debug_print("No file specified\n");
             print_usage();
         }
-        FILE *fp = fopen(argv[2], "r");
+        fp = fopen(argv[2], "r");
         if(fp == NULL){
             fprintf(stderr, "Error: Could not open file %s\n", argv[2]);
             exit(1);
@@ -89,7 +109,7 @@ int main(int argc, char const *argv[])
 
     }
     else{
-        isUrl = true;
+        isSingleUrl = true;
         location = argv[1];
     }
 
@@ -153,25 +173,25 @@ int main(int argc, char const *argv[])
     /*
         Starting to parse the feed
     */
-    if(isUrl){
-        fprintf(stderr, "Reading from url %s\n", argv[1]);
-
-        struct url url_location = parse_url(location);
-
-        string filename = download_location + string("/") + url_location.host + ".xml";
-
-        if(url_location.is_https)
-            download_https_feed(url_location, filename, certfile, certaddr);
-        else
-            download_http_feed(url_location, filename);
-
-        parse_news_feed_file(filename, showTime, showAuthor, showUrls);
+    if(isSingleUrl){
+        read_from_url(location.c_str(), certfile, certaddr, showTime, showAuthor, showUrls);
     }else{
+        fstream newfile;
 
+        newfile.open("feedfile",ios::in); //open a file to perform read operation using file object
+        if (newfile.is_open()){   //checking whether the file is open
+            string tp;
+            while(getline(newfile, tp)){ //read data from file object and put it into string.
+
+                if (!tp.empty() && tp[tp.size() - 1] == '\r')
+                    tp.erase(tp.size() - 1);
+
+                read_from_url(tp.c_str(), certfile, certaddr, showTime, showAuthor, showUrls);
+            
+            }
+            newfile.close(); //close the file object.
+        }
     }
     
-    
-    
-
     return 0;
 }
