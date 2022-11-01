@@ -3,6 +3,8 @@
 void download_https_feed(struct url url, string filename,  string certfile, string certaddr){
     // fprintf(stderr, "Downloading https feed\n");
 
+    SSL_library_init();
+
     if(!url.is_https)
         fprintf(stderr, "Warning: feed is not served over HTTPS\n");
 
@@ -12,9 +14,13 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     BIO *web = NULL;
     SSL *ssl = NULL;
 
-    //init_openssl_library();
-
+    #if OPENSSL_VERSION_NUMBER < 0x10100000L
+    const SSL_METHOD* method = TLSv1_2_method();
+    #else
     const SSL_METHOD* method = TLS_method();
+    #endif
+
+    
     if(!(NULL != method)) download_error_print("SSL/TLS failed, SSL_Method...");
 
     ctx = SSL_CTX_new(method);

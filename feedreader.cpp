@@ -1,21 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <stdbool.h>
-#include <cstring>
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-#include <filesystem>
-
-
-#include "downloader.hpp"
-#include "parser.hpp"
-
+#include "feedreader.hpp"
 
 using namespace std;
 
