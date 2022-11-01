@@ -1,2 +1,3 @@
 http://www.theregister.com/headlines.atom
 https://what-if.xkcd.com/feed.atom
+https://en.wikipedia.org:443/w/api.php?hidebots=1&days=7&limit=3&hidewikidata=1&action=feedrecentchanges&feedformat=rss

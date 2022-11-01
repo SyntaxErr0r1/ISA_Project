@@ -47,6 +47,16 @@ void error_print(const char *msg){
     exit(1);
 }
 
+/**
+ * @brief Downloads and then processes the provided XML resource
+ * 
+ * @param url_add string of the url
+ * @param certfile 
+ * @param certaddr 
+ * @param showTime 
+ * @param showAuthor 
+ * @param showUrls 
+ */
 void read_from_url(const char* url_add, std::string certfile, std::string certaddr, bool showTime, bool showAuthor, bool showUrls){
     struct url url_location = parse_url(url_add);
 
@@ -63,8 +73,6 @@ void read_from_url(const char* url_add, std::string certfile, std::string certad
 
 int main(int argc, char const *argv[])
 {
-    // namespace fs = std::filesystem;
-
     /*
         Parsing command line arguments
     */
@@ -171,14 +179,14 @@ int main(int argc, char const *argv[])
 
 
     /*
-        Starting to parse the feed
+        Starting to parse the feed(s)
     */
     if(isSingleUrl){
         read_from_url(location.c_str(), certfile, certaddr, showTime, showAuthor, showUrls);
     }else{
         fstream newfile;
 
-        newfile.open("feedfile",ios::in); //open a file to perform read operation using file object
+        newfile.open(location.c_str(),ios::in); //open a file to perform read operation using file object
         if (newfile.is_open()){   //checking whether the file is open
             string tp;
             while(getline(newfile, tp)){ //read data from file object and put it into string.

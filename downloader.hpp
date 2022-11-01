@@ -1,5 +1,6 @@
 #include "cstring"
 #include <string>
+#include <fstream>
 
 #include <openssl/x509v3.h> //x509 implementation for compatibility
 #include <openssl/bn.h> // 
@@ -26,8 +27,36 @@ struct url {
  */
 void download_error_print(const char *msg);
 
+/**
+ * @brief downloads a provided https feed into a file
+ * 
+ * @param url the HTTPS resource 
+ * @param filename filename where it will be saved
+ * @param certfile
+ * @param certaddr 
+ */
 void download_https_feed(struct url url, string filename, string certfile, string certaddr);
 
+/**
+ * @brief downloads http feed into file
+ * 
+ * @param url the HTTP resource
+ * @param filename the name of the save file
+ */
 void download_http_feed(struct url url, string filename);
 
+/**
+ * @brief returns structure containing information about the URL
+ * 
+ * @param url string of the url
+ * @return struct url 
+ */
 struct url parse_url(string url);
+
+/**
+ * @brief returns the body from the received response
+ * 
+ * @param web BIO* handling the communication
+ * @return string containing the body without the header
+ */
+string get_body(BIO *web);

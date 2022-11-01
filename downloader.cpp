@@ -9,7 +9,7 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     long res = 1;
 
     SSL_CTX* ctx = NULL;
-    BIO *web = NULL, *out = NULL;
+    BIO *web = NULL;
     SSL *ssl = NULL;
 
     //init_openssl_library();
@@ -66,10 +66,6 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     res = SSL_set_tlsext_host_name(ssl, url.host.c_str());
     if(!(1 == res)) download_error_print("SSL/TLS failed, SSL_set_tlsext_host_name...");
 
-    //new file pointer
-    out = BIO_new_file(filename.c_str(), "w");
-    if(!(NULL != out)) download_error_print("SSL/TLS failed, BIO_new_fp... (%s)");
-
     res = BIO_do_connect(web);
     if(!(1 == res)) download_error_print("SSL/TLS failed, BIO_do_connect...");
 
@@ -98,33 +94,14 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     // fprintf(stderr, "Request: %s", request.c_str());
 
     BIO_puts(web, request.c_str());
-    // BIO_puts(out, "\n");
 
-    bool in_header = true;
-    int len = 0;
-    do
-    {
-        char buff[2048] = {};
-        len = BIO_read(web, buff, sizeof(buff));
-        
-        if(len > 0){
-            if(in_header){
-                string header(buff);
-                size_t pos = header.find("\r\n\r\n");
-                if(pos != string::npos){
-                    in_header = false;
-                    header = header.substr(pos + 4);
+    string xml = get_body(web);
 
-                    BIO_write(out, header.c_str(), header.length());
-                }
-            } else {
-                BIO_write(out, buff, len);
-            }
-        }
-    } while (len > 0 || BIO_should_retry(web));
+    std::ofstream file (filename, std::ofstream::out);
 
-    if(out)
-        BIO_free(out);
+    file << xml;
+
+    file.close();
 
     if(web != NULL)
         BIO_free_all(web);
@@ -138,7 +115,7 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
 void download_http_feed(struct url url, string filename){
     // fprintf(stderr, "Downloading http feed \n");
 
-    BIO *web = NULL, *out = NULL;
+    BIO *web = NULL; 
     long res = 1;
 
     web = BIO_new_connect((url.host + ":" + url.port).c_str());
@@ -147,47 +124,46 @@ void download_http_feed(struct url url, string filename){
     res = BIO_do_connect(web);
     if(!(1 == res)) download_error_print("HTTP failed, BIO_do_connect...");
 
-    out = BIO_new_file(filename.c_str(), "w");
-    if(!(NULL != out)) download_error_print("HTTP failed, BIO_new_fp...");
-
     BIO_puts(web, ("GET /" + url.resource + " HTTP/1.0\r\n"
               +"Host: " + url.host + "\r\n"
               +"Connection: close\r\n\r\n").c_str());
-    // BIO_puts(out, "\n");
+    
+    string xml = get_body(web);
 
-    // fprintf(stderr, "Requesting HTTP: %s\n", ("GET /" + url.resource + " HTTP/1.0\r\n"
-    //           "Host: " + url.host + "\r\n"
-    //           "Connection: close\r\n\r\n").c_str());
+    std::ofstream file (filename, std::ofstream::out);
 
-    bool in_header = true;
-    int len = 0;
+    file << xml;
 
-    do
-    {
-        char buff[2048] = {};
-        len = BIO_read(web, buff, sizeof(buff));
-        if(len > 0){
-            if(in_header){
-                string header(buff);
-                size_t pos = header.find("\r\n\r\n");
-                if(pos != string::npos){
-                    in_header = false;
-                    header = header.substr(pos + 4);
-
-                    BIO_write(out, header.c_str(), header.length());
-                }
-            } else {
-                BIO_write(out, buff, len);
-            }
-        }
-    } while (len > 0 || BIO_should_retry(web));
-
-    if(out)
-        BIO_free(out);
+    file.close();
 
     if(web != NULL)
         BIO_free_all(web);
 
+}
+
+string get_body(BIO *web){
+    string output = string();
+    int len = 0;
+
+    do
+    {
+        char buff[4096] = {};
+        len = BIO_read(web, buff, sizeof(buff) - sizeof(char));
+        if(len > 0){
+            output.append(buff);
+        }
+    } while (len > 0 || BIO_should_retry(web));
+
+    //remove the header
+    size_t pos = output.find("\r\n\r\n");
+
+    if(pos != string::npos){
+        output = output.substr(pos+4);
+    }else{
+        fprintf(stderr,"Error: No header found\n");
+    }
+
+    return output;
 }
 
 void download_error_print (const char *msg){
@@ -238,7 +214,6 @@ struct url parse_url(string url) {
             port = "80";
         }
     }
-    fprintf(stderr,"resource: %s\n",resource.c_str());
     parsed_url.host = host;
     parsed_url.port = port;
     parsed_url.resource = resource;
