@@ -1,7 +1,5 @@
 #include "feedreader.hpp"
 
-using namespace std;
-
 #define DOWNLOAD_DIR "temp/"
 
 /**
