@@ -1,5 +1,5 @@
 #makefile for c++ project with libxml2
-CFLAGS = `xml2-config --cflags` -g -Wall -I/usr/include/libxml2
+CFLAGS = `xml2-config --cflags` -g -Wall -Wextra -I/usr/include/libxml2
 LDFLAGS = `xml2-config --libs` -lxml2 -lssl -lcrypto
 OBJS = feedreader.o parser.o downloader.o
 TARGET = feedreader

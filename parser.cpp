@@ -51,7 +51,7 @@ const char* atom_to_rss(const char *atom_name){
         return "pubDate";
     else if(!strcmp(atom_name,"entry"))
         return "item";
-    else return atom_name;
+    return atom_name;
 }
 
 
@@ -83,10 +83,10 @@ void print_author_node(feed_type type, xmlNode *node){
     for (cur_node = node; cur_node; cur_node = cur_node->next) {
         if (cur_node->type == XML_ELEMENT_NODE) {
             if (check_node_name(type, cur_node, "name")) {
-                printf("Author name:  %s\n", xmlNodeGetContent(cur_node));
+                printf("Author name:  %s\n", get_node_content_string(cur_node).c_str());
             }
             if (check_node_name(type, cur_node, "email")) {
-                printf("Author email: %s\n", xmlNodeGetContent(cur_node));
+                printf("Author email: %s\n", get_node_content_string(cur_node).c_str());
             }else{
                 // printf("\n");
             }
@@ -105,21 +105,23 @@ void print_author_node(feed_type type, xmlNode *node){
 void parse_item(feed_type type, xmlNode *item, bool showTime,bool showAuthor,bool showUrls){
     for(xmlNode *cur_node = item->children; cur_node; cur_node = cur_node->next){
             if(check_node_name(type, cur_node,"title")){
-                printf("%s\n", xmlNodeGetContent(cur_node));
+                printf("%s\n", get_node_content_string(cur_node).c_str());
             }
             else if(check_node_name(type, cur_node,"link")){
                 if(showUrls){
                     if(type == FEED_TYPE_ATOM){
-                        printf("URL: %s\n", xmlGetProp(cur_node, (const xmlChar *)"href"));
+                        xmlChar *href = xmlGetProp(cur_node, (const xmlChar *)"href");
+                        printf("URL: %s\n", href);
+                        xmlFree(href);
                     }
                     else if(type == FEED_TYPE_RSS){
-                        printf("URL: %s\n", xmlNodeGetContent(cur_node));
+                        printf("URL: %s\n", get_node_content_string(cur_node).c_str());
                     }
                 }
             }
             else if(check_node_name(type, cur_node,"published")){
                 if(showTime){
-                    printf("Aktualizace: %s\n", xmlNodeGetContent(cur_node));
+                    printf("Aktualizace: %s\n", get_node_content_string(cur_node).c_str());
                 }
             }
             else if(check_node_name(type, cur_node,"author")){
@@ -137,7 +139,7 @@ void parse_feed(feed_type type, xmlNode *node, bool showTime,bool showAuthor,boo
         if(cur_node->type == XML_ELEMENT_NODE){
             if(check_node_name(type, cur_node, "title")){
                 printf("*** %s ***\n", cur_node->children->content);
-            }
+            }   
 
             if(check_node_name(type, cur_node, "entry")){
                 parse_item(type, cur_node, showTime, showAuthor, showUrls);
@@ -184,4 +186,12 @@ void parse_news_feed_file(std::string location, bool showTime,bool showAuthor,bo
 
     xmlFreeDoc(doc);       // free document
     xmlCleanupParser();    // Free globals
+}
+
+
+string get_node_content_string(xmlNode *node){
+    xmlChar *content = xmlNodeGetContent(node);
+    string content_string = (char*)content;
+    xmlFree(content);
+    return content_string;
 }

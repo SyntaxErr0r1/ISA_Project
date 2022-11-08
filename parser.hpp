@@ -1,12 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
-#include <string>
-#include <stdbool.h>
 #include <cstring>
+#include <stdbool.h>
+#include <string>
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+
+using namespace std;
 
 enum feed_type { 
     FEED_TYPE_UNKNOWN = 0,
@@ -90,3 +92,8 @@ feed_type get_feed_type(xmlNode *root);
  */
 xmlNode* get_channel_node(feed_type type, xmlNode *root);
 
+/**
+ * @brief Returns the node content and frees the node
+ * 
+ */
+string get_node_content_string(xmlNode *node);
