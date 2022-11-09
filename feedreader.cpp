@@ -38,112 +38,95 @@ void error_print(const char *msg){
  * @param showAuthor 
  * @param showUrls 
  */
-void read_from_url(const char* url_add, std::string certfile, std::string certaddr, bool showTime, bool showAuthor, bool showUrls){
+void read_from_url(const char* url_add, std::string certfile, std::string certaddr, struct parse_config config){
     struct url url_location = parse_url(url_add);
 
     // string filename = DOWNLOAD_DIR + url_location.host + ".xml";
-    string filename ="temp/temp.xml";
+    string filename = DOWNLOAD_DIR;
+    filename.append("temp.xml");
 
     if(url_location.is_https)
         download_https_feed(url_location, filename, certfile, certaddr);
     else
         download_http_feed(url_location, filename);
 
-    parse_news_feed_file(filename, showTime, showAuthor, showUrls);
+    parse_news_feed_file(filename, config);
 }
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
     /*
         Parsing command line arguments
     */
 
-    const char *download_location = "./temp";
-    bool showTime = false;
-    bool showAuthor = false;
-    bool showUrls = false;
+    struct parse_config config = {
+        .show_time = false,
+        .show_author = false,
+        .show_urls = false
+    };
 
-    bool isSingleUrl = false;
+    bool is_single_url = false;
     string location = "";
 
     string certfile = "";
     string certaddr = "";
-
-    FILE *fp = NULL;
 
     if(argc < 2 ){
         fprintf(stderr, "Error: No URL or file specified.\n");
         print_usage();
     }
     
-    if(argv[1][0] == '-'){
-        if(argv[1][1] != 'f'){
-            fprintf(stderr,"char: %c\n",argv[1][1]);
-            print_usage();
-        }
-
-        // try to open and read from the file
-        if(argc < 3){
-            debug_print("No file specified\n");
-            print_usage();
-        }
-        fp = fopen(argv[2], "r");
-        if(fp == NULL){
-            fprintf(stderr, "Error: Could not open file %s\n", argv[2]);
-            exit(1);
-        }
-        fclose(fp);
-        
-        location = argv[2];
-
-    }
-    else{
-        isSingleUrl = true;
-        location = argv[1];
-    }
-
-    for (int i = 0; i < argc; i++){
-        const char* arg = argv[i];
-        
-        if(arg[0] == '-'){
-            switch (arg[1])
-            {
-            case 'c':
-                if(argc < i+2){
-                    error_print("No certfile specified\n");
-                    print_usage();
-                }
-                certfile = argv[i+1];
-                break;
-            case 'C':
-                if(argc < i+2){
-                    error_print("No certaddr specified\n");
-                    print_usage();
-                }
-                certaddr = argv[i+1];
-                break;
+    int c;
+    while ((c = getopt(argc, argv, ":auTf:c:C:h")) != -1)
+    {
+        switch(c)
+        {
             case 'T':
-                showTime = true;
+                fprintf(stderr, "showTime\n");
+                config.show_time = true;
                 break;
             case 'a':
-                showAuthor = true;
+                fprintf(stderr, "showAuthor\n");
+                config.show_author = true;
                 break;
             case 'u':
-                showUrls = true;
+                fprintf(stderr, "showUrls\n");
+                config.show_urls = true;
                 break;
             case 'f':
+                location = optarg;
                 break;
-            default:
+            case 'c':
+                certfile = optarg;
+                break;
+            case 'C':
+                certaddr = optarg;
+                break;
+            case 'h':
                 print_usage();
                 break;
-            }
+            case '?': 
+                
+                break; 
+            default :
+                print_usage();
+                break;
         }
     }
 
+    for(; optind < argc; optind++){     
+        location = argv[optind];
+        is_single_url = true;
+        fprintf(stderr, "Assuming %s is a URL\n", location.c_str());
+    }
+
+    /* 
+        Preparing the download directory 
+    */
     struct stat info;
     
-    if( stat( download_location, &info ) != 0 ){
-        int check = mkdir(download_location,0777);
+    if( stat( DOWNLOAD_DIR, &info ) != 0 ){
+        int check = mkdir(DOWNLOAD_DIR,0777);
         // check == 0 if directory is created
         if(check){
             printf("Unable to create directory\n");
@@ -151,10 +134,10 @@ int main(int argc, char const *argv[])
         }
     }
     else if( info.st_mode & S_IFDIR ){ 
-        
+        //dir already exists
     }
     else{
-        printf( "%s is no directory\n", download_location );
+        printf( "%s is no directory\n", DOWNLOAD_DIR );
         exit(2);
     }
 
@@ -162,23 +145,26 @@ int main(int argc, char const *argv[])
     /*
         Starting to parse the feed(s)
     */
-    if(isSingleUrl){
-        read_from_url(location.c_str(), certfile, certaddr, showTime, showAuthor, showUrls);
+    if(is_single_url){
+        read_from_url(location.c_str(), certfile, certaddr, config);
     }else{
         fstream newfile;
 
-        newfile.open(location.c_str(),ios::in); //open a file to perform read operation using file object
-        if (newfile.is_open()){   //checking whether the file is open
+        newfile.open(location.c_str(),ios::in);
+        if (newfile.is_open()){  
             string tp;
-            while(getline(newfile, tp)){ //read data from file object and put it into string.
+            while(getline(newfile, tp)){
 
                 if (!tp.empty() && tp[tp.size() - 1] == '\r')
                     tp.erase(tp.size() - 1);
 
-                read_from_url(tp.c_str(), certfile, certaddr, showTime, showAuthor, showUrls);
+                read_from_url(tp.c_str(), certfile, certaddr, config);
             
             }
-            newfile.close(); //close the file object.
+            newfile.close();
+        }else{
+            fprintf(stderr, "Error: Could not open file %s\n", location.c_str());
+            exit(1);
         }
     }
     

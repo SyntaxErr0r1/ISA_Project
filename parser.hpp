@@ -16,6 +16,11 @@ enum feed_type {
     FEED_TYPE_ATOM = 2
 };
 
+struct parse_config {
+    bool show_time;
+    bool show_author;
+    bool show_urls;
+};
 
 /**
  * @brief converts a node name from atom to rss (kind of a dictionary)
@@ -50,7 +55,7 @@ void print_author_node(feed_type type, xmlNode *node);
  * @param showAuthor 
  * @param showUrls 
  */
-void parse_item(feed_type type, xmlNode *item, bool showTime,bool showAuthor,bool showUrls);
+void parse_item(feed_type type, xmlNode *item, struct parse_config config);
 
 /**
  * @brief Prints the content of a channel or feed node
@@ -61,7 +66,7 @@ void parse_item(feed_type type, xmlNode *item, bool showTime,bool showAuthor,boo
  * @param showAuthor 
  * @param showUrls 
  */
-void parse_feed(feed_type type, xmlNode *node, bool showTime,bool showAuthor,bool showUrls);
+void parse_feed(feed_type type, xmlNode *node, struct parse_config config);
 
 
 /**
@@ -73,7 +78,7 @@ void parse_feed(feed_type type, xmlNode *node, bool showTime,bool showAuthor,boo
  * @param showAuthor 
  * @param showUrls 
  */
-void parse_news_feed_file(std::string location, bool showTime,bool showAuthor,bool showUrls);
+void parse_news_feed_file(std::string location, struct parse_config config);
 
 /**
  * @brief determines if the feed is rss or atom

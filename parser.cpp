@@ -98,17 +98,15 @@ void print_author_node(feed_type type, xmlNode *node){
  * @brief Prints the content of an entry or item node (one article) 
  * 
  * @param item the node to print
- * @param showTime
- * @param showAuthor 
- * @param showUrls 
+ * @param config the config struct
  */
-void parse_item(feed_type type, xmlNode *item, bool showTime,bool showAuthor,bool showUrls){
+void parse_item(feed_type type, xmlNode *item, struct parse_config config){
     for(xmlNode *cur_node = item->children; cur_node; cur_node = cur_node->next){
             if(check_node_name(type, cur_node,"title")){
                 printf("%s\n", get_node_content_string(cur_node).c_str());
             }
             else if(check_node_name(type, cur_node,"link")){
-                if(showUrls){
+                if(config.show_urls){
                     if(type == FEED_TYPE_ATOM){
                         xmlChar *href = xmlGetProp(cur_node, (const xmlChar *)"href");
                         printf("URL: %s\n", href);
@@ -120,12 +118,12 @@ void parse_item(feed_type type, xmlNode *item, bool showTime,bool showAuthor,boo
                 }
             }
             else if(check_node_name(type, cur_node,"published")){
-                if(showTime){
+                if(config.show_time){
                     printf("Aktualizace: %s\n", get_node_content_string(cur_node).c_str());
                 }
             }
             else if(check_node_name(type, cur_node,"author")){
-                if(showAuthor){
+                if(config.show_author){
                     print_author_node(type, cur_node->children);
                 }
             }
@@ -133,7 +131,7 @@ void parse_item(feed_type type, xmlNode *item, bool showTime,bool showAuthor,boo
     printf("\n");
 }
 
-void parse_feed(feed_type type, xmlNode *node, bool showTime,bool showAuthor,bool showUrls){
+void parse_feed(feed_type type, xmlNode *node, struct parse_config config){
     xmlNode *cur_node = NULL;
     for(cur_node = node->children; cur_node; cur_node = cur_node->next){
         if(cur_node->type == XML_ELEMENT_NODE){
@@ -142,13 +140,13 @@ void parse_feed(feed_type type, xmlNode *node, bool showTime,bool showAuthor,boo
             }   
 
             if(check_node_name(type, cur_node, "entry")){
-                parse_item(type, cur_node, showTime, showAuthor, showUrls);
+                parse_item(type, cur_node, config);
             }
         }
     }
 }
 
-void parse_news_feed_file(std::string location, bool showTime,bool showAuthor,bool showUrls){
+void parse_news_feed_file(std::string location, struct parse_config config){
     
     enum feed_type type = FEED_TYPE_UNKNOWN;
 
@@ -182,7 +180,7 @@ void parse_news_feed_file(std::string location, bool showTime,bool showAuthor,bo
     /*
         Parsing the feed
     */
-    parse_feed(type, root, showTime, showAuthor, showUrls);
+    parse_feed(type, root, config);
 
     xmlFreeDoc(doc);       // free document
     xmlCleanupParser();    // Free globals

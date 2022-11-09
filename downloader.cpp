@@ -1,7 +1,6 @@
 #include "downloader.hpp"
 
 void download_https_feed(struct url url, string filename,  string certfile, string certaddr){
-    // fprintf(stderr, "Downloading https feed\n");
 
     SSL_library_init();
 
@@ -9,6 +8,7 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
         fprintf(stderr, "Warning: feed is not served over HTTPS\n");
 
     long res = 1;
+
 
     SSL_CTX* ctx = NULL;
     BIO *web = NULL;
@@ -19,20 +19,16 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     #else
     const SSL_METHOD* method = TLS_method();
     #endif
-
     
     if(!(NULL != method)) download_error_print("SSL/TLS failed, SSL_Method...");
 
     ctx = SSL_CTX_new(method);
     if(!(ctx != NULL)) download_error_print("SSL/TLS failed, SSL_CTX_new...");
 
-    /* Cannot fail ??? */
     // SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, verify_callback);
 
-    /* Cannot fail ??? */
     SSL_CTX_set_verify_depth(ctx, 4);
 
-    /* Cannot fail ??? */
     const long flags = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3 | SSL_OP_NO_COMPRESSION;
     SSL_CTX_set_options(ctx, flags);
 
@@ -78,26 +74,18 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     res = BIO_do_handshake(web);
     if(!(1 == res)) download_error_print("SSL/TLS failed, BIO_do_handshake...");
 
-    /* Step 1: verify a server certificate was presented during the negotiation */
+    // Verify a server certificate was presented during the negotiation
     X509* cert = SSL_get_peer_certificate(ssl);
     if(cert) { X509_free(cert); } /* Free immediately */
     if(NULL == cert) download_error_print("SSL/TLS failed, SLL_get_peer_certificate...");
 
-    /* Step 2: verify the result of chain verification */
-    /* Verification performed according to RFC 4158    */
+    // Step 2: verify the result of chain verification
     res = SSL_get_verify_result(ssl);
     if(!(X509_V_OK == res)) download_error_print("SSL/TLS failed, SSL_get_verify_result...");
-
-    /* Step 3: hostname verification */
-    /* An exercise left to the reader */
-
-    // fprintf(stderr,"Requesting resource: %s\n",url.resource.c_str());
 
     string request = ("GET /" + url.resource + " HTTP/1.0\r\n"
               "Host: " + url.host + "\r\n"
               "Connection: close\r\n\r\n");
-
-    // fprintf(stderr, "Request: %s", request.c_str());
 
     BIO_puts(web, request.c_str());
 
@@ -119,7 +107,6 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
 
 
 void download_http_feed(struct url url, string filename){
-    // fprintf(stderr, "Downloading http feed \n");
 
     BIO *web = NULL; 
     long res = 1;
