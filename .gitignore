@@ -1,6 +1,6 @@
 main
+feedreader
 *.o
 samples/
 temp/
 out
-tests/

@@ -1,0 +1,7 @@
+{
+    "args": "FEEDURL -T -a -u",
+    "feedUrl": [
+        "en.wikipedia.org.xml"
+    ],
+    "returnCode": 0
+}

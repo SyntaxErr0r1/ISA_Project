@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <id>tag:theregister.com,2005:feed/theregister.com/</id>
+  <title>The Register</title>
+  <link rel="self" type="application/atom+xml" href="https://www.theregister.com/headlines.atom"/>
+  <link rel="alternate" type="text/html" href="https://www.theregister.com/"/>
+  <rights>Copyright © 2022, Situation Publishing</rights>
+  <author>
+    <name>Team Register</name>
+    <email>webmaster@theregister.co.uk</email>
+    <uri>https://www.theregister.com/odds/about/contact/</uri>
+  </author>
+  <icon>https://www.theregister.com/Design/graphics/icons/favicon.png</icon>
+  <subtitle>Biting the hand that feeds IT — Enterprise Technology News and Analysis</subtitle>
+  <logo>https://www.theregister.com/Design/graphics/Reg_default/The_Register_r.png</logo>
+  <updated>2022-11-10T21:53:05Z</updated>
+  <entry>
+    <id>tag:theregister.com,2005:story224654</id>
+    <updated>2022-11-10T21:53:05Z</updated>
+    <author>
+      <name>Dylan Martin</name>
+      <uri>https://search.theregister.com/?author=Dylan%20Martin</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/amd_cpu_share/"/>
+    <title type="html">AMD grows Epyc datacenter share, loses to Intel generally</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Both firms have been hit with plunges in PC chip sales, and there's no Ryzen shine&lt;/h4&gt; &lt;p&gt;AMD has grown its share in the server processor market against Intel once again, though the chip designer lost out to its much larger rival in the broader x86 market.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224655</id>
+    <updated>2022-11-10T20:46:31Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/instagram_star_bec_prison/"/>
+    <title type="html">Instagram star gets 11 years for $300m email scam plot</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Hushpuppi swaps private jet, Dubai penthouse for prison duds and $1.7m to victims&lt;/h4&gt; &lt;p&gt;An international cyber-scammer and Instagram star who plotted to launder more than $300 million over the course of 18 months was this week jailed – and he must pay back more than $1.7 million to his victims. …&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224649</id>
+    <updated>2022-11-10T20:15:07Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/tsmc_neon_gas/"/>
+    <title type="html">TSMC: You know what would be fab? Some local neon supplies</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Chipmaker tired of Putin choking the supply chain of the gas&lt;/h4&gt; &lt;p&gt;Taiwanese chipmaker TSMC is reported to be seeking local sources of neon gas for use in its fabs, following disruptions to global supply chains caused by the Russian war in Ukraine.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224645</id>
+    <updated>2022-11-10T19:30:12Z</updated>
+    <author>
+      <name>Tobias Mann</name>
+      <uri>https://search.theregister.com/?author=Tobias%20Mann</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/amd_96core_epyc/"/>
+    <title type="html">AMD's 96-core Epyc CPUs leapfrog Intel to put DDR5, PCIe 5.0 in the datacenter</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Its also twice as fast as Milan, AMD execs claim&lt;/h4&gt; &lt;p&gt;AMD's status as scrappy underdog trailing in Intel's wake has been upended. The chipmaker has managed to pull out ahead of rival Intel with the launch of its fourth-generation Epyc "Genoa" processors this week.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224647</id>
+    <updated>2022-11-10T19:00:10Z</updated>
+    <author>
+      <name>Liam Proven</name>
+      <uri>https://search.theregister.com/?author=Liam%20Proven</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/ubuntu_skills_informal_certifications/"/>
+    <title type="html">No formal certifications? CUE the Ubuntu skills testing scheme</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Canonical is working on a new way to prove to employers you know your stuff&lt;/h4&gt; &lt;p&gt;&lt;strong&gt;Ubuntu Summit&lt;/strong&gt;  Canonical is working on a new training and skills-testing scheme, currently codenamed CUE, to help people without formal certifications to show that they've got what it takes.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224650</id>
+    <updated>2022-11-10T18:45:06Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/rivian_q3_losses/"/>
+    <title type="html">Tesla rival Rivian posts losses of $1.7b, with worse to come</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Taps mic: Elon? Elon are you there? Care to comment?&lt;/h4&gt; &lt;p&gt;Electric carmaker Rivian is reporting more trouble – this time it's the loss of $1.7 billion in Q3 alone, although the biz said it has enough cash on hand for three more years of business. …&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224646</id>
+    <updated>2022-11-10T17:14:08Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/husband_and_wife_spy_team/"/>
+    <title type="html">Husband and wife nuclear warship 'spy' team get 20 years each</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The Toebbes tried selling US Navy secrets, but handed them right to the FBI&lt;/h4&gt; &lt;p&gt;A woman and her husband, who both copped to trying to sell nuclear warship secrets to a foreign government, have been sentenced to prison, with each set to spend around two decades behind bars.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224648</id>
+    <updated>2022-11-10T16:34:09Z</updated>
+    <author>
+      <name>Lindsay Clark</name>
+      <uri>https://search.theregister.com/?author=Lindsay%20Clark</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/twitter_ciso_quits/"/>
+    <title type="html">Twitter Chief Information Security Officer flies the coop</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;As social media giant grapples with Musk takeover, a safe pair of hands reaches for the door&lt;/h4&gt; &lt;p&gt;Troubled social media giant Twitter has lost the services of its chief information and security officer to cap off another chaotic week following its acquisition by Elon Musk.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224642</id>
+    <updated>2022-11-10T15:30:09Z</updated>
+    <author>
+      <name>Lindsay Clark</name>
+      <uri>https://search.theregister.com/?author=Lindsay%20Clark</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/saps_vision_belies_complexity_of/"/>
+    <title type="html">SAP's vision underplays complexity of S/4HANA cloud migration, says Gartner</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Difficult decision did not end with RISE with SAP, analyst tells The Reg&lt;/h4&gt; &lt;p&gt;SAP’s plans for moving customers to S/4HANA in the cloud – the assumed destination for the majority of SAP's ERP users – belies the complexity of decision in terms of software licensing, infrastructure and business processes, according to Gartner.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224643</id>
+    <updated>2022-11-10T14:30:06Z</updated>
+    <author>
+      <name>Paul Kunert</name>
+      <uri>https://search.theregister.com/?author=Paul%20Kunert</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/apple_and_amazon_clas_action_price_collusion_ipad_iuphone/"/>
+    <title type="html">Apple and Amazon conspired to raise iPhone and iPad prices, claims class action lawsuit</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Alleges agreement choked resellers using Amazon Marketplace, eliminated 98% of competition&lt;/h4&gt; &lt;p&gt;Apple and Amazon stand accused of colluding to push up the price of iPhones and iPads by trying to suppress the competitive threat from resellers using Amazon's Marketplace.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224641</id>
+    <updated>2022-11-10T13:32:57Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/eu_set_to_sign_internet_sat_deal/"/>
+    <title type="html">EU set to sign internet satellite deal, as UK frees up spectrum</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Hasn't escaped Europe's notice that US, China, Russia are launching sat after sat&lt;/h4&gt; &lt;p&gt;The EU is said to be nearing a deal on building a satellite internet service to fill in gaps in terrestrial broadband coverage, as well as providing "strategic independence" for the region.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224628</id>
+    <updated>2022-11-10T12:30:10Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/ibm_and_fujitsu_detail_quantum/"/>
+    <title type="html">The Osprey has landed: IBM's 433-qubit quantum processor</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Still quite a way to go before fabled 4,158-qubit system lands, scheduled for 2025. Plus: Fujitsu details quantum/HPC hybrid calculation tech&lt;/h4&gt; &lt;p&gt;IBM has officially unveiled its Osprey quantum processor featuring 433 qubits, more than three times the qubits seen in its Eagle processor introduced just a year ago.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224638</id>
+    <updated>2022-11-10T11:35:12Z</updated>
+    <author>
+      <name>Laura Dobberstein</name>
+      <uri>https://search.theregister.com/?author=Laura%20Dobberstein</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/ntt_anti_noise_leak_headphones/"/>
+    <title type="html">NTT claims it can stop the noise leaking from annoying people's headphones</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Can't do anything about their musical taste though&lt;/h4&gt; &lt;p&gt;Japanese telecommunications megalith NTT released details on Wednesday of ambitious headphone tech that eliminates pesky sound leakage – even on open-ear earphones.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224627</id>
+    <updated>2022-11-10T10:30:07Z</updated>
+    <author>
+      <name>Liam Proven</name>
+      <uri>https://search.theregister.com/?author=Liam%20Proven</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/openprinting_keeps_old_printers_working/"/>
+    <title type="html">OpenPrinting keeps old printers working – even on Windows</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Or, how to make an unsupported printer work on Windows 11 with Ubuntu and WSL2&lt;/h4&gt; &lt;p&gt;&lt;strong&gt;Ubuntu Summit&lt;/strong&gt;  The OpenPrinting project – together with Windows Services for Linux – enables printers that Windows no longer supports to work on Windows 11.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224625</id>
+    <updated>2022-11-10T09:30:07Z</updated>
+    <author>
+      <name>Lindsay Clark</name>
+      <uri>https://search.theregister.com/?author=Lindsay%20Clark</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/gartner_forecast_tech_price_inflation/"/>
+    <title type="html">CIOs in Europe warned: Be wary of tech price inflation</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Weakness of local currencies vs the dollar will force US vendors to act and act again&lt;/h4&gt; &lt;p&gt;Chief information officers in Western Europe should buckle up for enterprise tech price inflation in 2023 unless local currencies stage something of a dramatic recovery against the US dollar.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224626</id>
+    <updated>2022-11-10T08:33:11Z</updated>
+    <author>
+      <name>Jeff Burt</name>
+      <uri>https://search.theregister.com/?author=Jeff%20Burt</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/microsoft_dotnet_release_7/"/>
+    <title type="html">Microsoft's grand unified theory of .NET advances a little</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;More support for multiple platforms, Arm architecture, and the cloud in release 7&lt;/h4&gt; &lt;p&gt;Microsoft's unveiling this week of the production release of .NET 7 advances the company's efforts over the past few years to unify the open source development runtime to support multiple architectures and platforms.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224629</id>
+    <updated>2022-11-10T07:33:07Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/esa_space_based_solar_power/"/>
+    <title type="html">Look! Up in the sky! Proof of concept for satellites beaming energy to Earth!</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;They'd need to be a kilometer wide and point at even larger landside targets, so they won't fire up the renewables market&lt;/h4&gt; &lt;p&gt;A recent demonstration has proven the feasibility of the European Space Agency's (ESA) plan to beam power to Earth from space, giving the astro agency some additional ammunition as it prepares to ask its governing body for more cash to fund solar energy research. …&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224635</id>
+    <updated>2022-11-10T06:33:07Z</updated>
+    <author>
+      <name>Simon Sharwood</name>
+      <uri>https://search.theregister.com/?author=Simon%20Sharwood</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/twitter_verified_opinion/"/>
+    <title type="html">I'm happy paying Twitter eight bucks a month because price isn't the same as value</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Addressing social media's baked-in flaws starts with users realizing its true worth&lt;/h4&gt; &lt;p&gt;&lt;strong&gt;Opinion&lt;/strong&gt;  I've decided to sign up for Twitter's subscription-based service for a simple reason: to put my money where my mouth is.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224637</id>
+    <updated>2022-11-10T05:45:10Z</updated>
+    <author>
+      <name>Katyanna Quach</name>
+      <uri>https://search.theregister.com/?author=Katyanna%20Quach</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/cygnus_iss_solar_docking/"/>
+    <title type="html">Cygnus cargo ship makes it to ISS with blanketed solar panel</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;'Acoustic blanket' cuts power by 50 percent&lt;/h4&gt; &lt;p&gt;An Cygnus cargo ship has successfully made it to the International Space Station despite the failure of half its solar panel array.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224633</id>
+    <updated>2022-11-10T04:46:41Z</updated>
+    <author>
+      <name>Jeff Burt</name>
+      <uri>https://search.theregister.com/?author=Jeff%20Burt</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/icexloader_malware_microsoft_users/"/>
+    <title type="html">Windows breaks under upgraded IceXLoader malware</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;We're the malware of Nim!&lt;/h4&gt; &lt;p&gt;A malware loader deemed in June to be a "work in progress" is now fully functional and infecting thousands of Windows corporate and home PCs.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224634</id>
+    <updated>2022-11-10T01:08:36Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/official_twitter_musk_payment/"/>
+    <title type="html">Musk sows more Twitter chaos, now with Official policy snafu</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Today's messes: a possible crypto venture; blue tick blackflips; advertiser assurances; and a promise to try dumb things&lt;/h4&gt; &lt;p&gt;The Twitter "Official" label that showed up on the platform yesterday as a way to fix an arguably unbroken verification system has apparently disappeared from many accounts in less than 24 hours.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224636</id>
+    <updated>2022-11-10T00:15:06Z</updated>
+    <author>
+      <name>Jessica Lyons Hardcastle</name>
+      <uri>https://search.theregister.com/?author=Jessica%20Lyons%20Hardcastle</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/10/republican_senators_ftc_privacy/"/>
+    <title type="html">Republican senators tell FTC to back off data security, surveillance rules</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;And they don't like the states' 'patchwork' privacy laws, either&lt;/h4&gt; &lt;p&gt;US federal rulemaking on surveillance and data privacy should be left to Congress, not American consumer watchdog agencies — or states — according to a trio of Republican senators.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224632</id>
+    <updated>2022-11-09T23:33:05Z</updated>
+    <author>
+      <name>Katyanna Quach</name>
+      <uri>https://search.theregister.com/?author=Katyanna%20Quach</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/theranos_holmes_trial/"/>
+    <title type="html">Theranos founder Elizabeth Holmes's arguments for new trial deemed spurious – just like her tech</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Federal judge won't revisit fraud case, sets a date for sentencing instead&lt;/h4&gt; &lt;p&gt;Elizabeth Holmes, founder of debunked blood-testing startup Theranos, will be sentenced next week after a federal judge denied her request for a new trial.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224631</id>
+    <updated>2022-11-09T21:15:12Z</updated>
+    <author>
+      <name>Jessica Lyons Hardcastle</name>
+      <uri>https://search.theregister.com/?author=Jessica%20Lyons%20Hardcastle</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/warren_wells_fargo_zelle_fraud/"/>
+    <title type="html">Wells Fargo, Zelle slammed by Liz Warren over rampant online banking fraud</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Customers 'more than twice' as likely to be hit by scams, says Dem Senator&lt;/h4&gt; &lt;p&gt;Wells Fargo customers who use Zelle to send and request payments suffer more than twice the rate of fraud and other online scams as people using other big banks, according to US Senator Elizabeth Warren (D-MA).…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224630</id>
+    <updated>2022-11-09T20:23:56Z</updated>
+    <author>
+      <name>Dylan Martin</name>
+      <uri>https://search.theregister.com/?author=Dylan%20Martin</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/mythic_analog_ai_chips/"/>
+    <title type="html">Mythic bet big on analog AI but has run out of cash</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Veep still says 'technology will eventually be very successful'&lt;/h4&gt; &lt;p&gt;A startup that bet on the old concept of analog chips to provide energy-efficient AI computing has run out of capital.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224621</id>
+    <updated>2022-11-09T19:41:17Z</updated>
+    <author>
+      <name>Tobias Mann</name>
+      <uri>https://search.theregister.com/?author=Tobias%20Mann</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/rescale_nvidia_hpc/"/>
+    <title type="html">Optimizer Rescale recommends Rescale's optimization recommender</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Say that three times in a row. Better yet, train a model with Nvidia GPUs to say it&lt;/h4&gt; &lt;p&gt;Cloud-sim platform Rescale believes its forthcoming Compute Recommendation Engine can cut the time needed to optimize AI/ML and high-performance compute (HPC) workloads, giving people more time to actually run the software.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224624</id>
+    <updated>2022-11-09T17:45:13Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/globalfoundries_expects_semi_market_dip/"/>
+    <title type="html">GlobalFoundries expects semi market dip – but only in first half of 2023</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Foundries folk pity the fool who writes off whole of 2023, though analyst says GF crew is 'optimistic'&lt;/h4&gt; &lt;p&gt;Semiconductor manufacturing biz GlobalFoundries expects weakening chip demand to bottom out in the first half of 2023, as it announced better than expected results for Q3 2022.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224622</id>
+    <updated>2022-11-09T17:00:12Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/oculus_designer_vr_deadly/"/>
+    <title type="html">Feel Luckey, punk? Oculus designer builds VR murder headset</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The metaverse is shaping up to be such an inviting place&lt;/h4&gt; &lt;p&gt;Palmer Luckey, originator of the device that evolved into the cornerstone of Mark Zuckerberg's crumbling metaverse empire, has developed a new headset with a twist: It can kill gamers in real life when they die in VR. …&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224617</id>
+    <updated>2022-11-09T16:15:07Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/tsmc_arizona_fab_report/"/>
+    <title type="html">TSMC reportedly looks to raise a second Arizona chip fab</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;America's Chip Act looking a bit less like 'expensive exercise in futility'&lt;/h4&gt; &lt;p&gt;Taiwan's chipmaking giant TSMC is said to be preparing to build another semiconductor fabrication plant in Arizona, alongside the facility it completed this summer, in a move that may be seen as a vindication of the US government’s CHIPS Act funding.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224623</id>
+    <updated>2022-11-09T15:30:10Z</updated>
+    <author>
+      <name>Paul Kunert</name>
+      <uri>https://search.theregister.com/?author=Paul%20Kunert</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/musk_sells_nearly_4_billion/"/>
+    <title type="html">Musk sells $3.95 billion in Tesla shares, paid eleven times more for Twitter</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Meanwhile, more advertisers pause spending on loss-making social media platform and user base said to be declining&lt;/h4&gt; &lt;p&gt;What's the latest in the life of the world’s richest man? Elon Musk has offloaded almost $4 billion in Tesla stock after buying Twitter, the social media platform that is losing advertisers, money and maybe users.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224619</id>
+    <updated>2022-11-09T14:45:11Z</updated>
+    <author>
+      <name>Lindsay Clark</name>
+      <uri>https://search.theregister.com/?author=Lindsay%20Clark</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/salesforce_trims_workforce_as_growth/"/>
+    <title type="html">Salesforce trims workforce as growth slows post-lockdowns</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The COVID-era hiring spree which saw thousands onboarded comes to an abrupt end&lt;/h4&gt; &lt;p&gt;Salesforce is set to lay off hundreds of staff as the COVID-19-related hiring boom runs out of steam.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224611</id>
+    <updated>2022-11-09T14:00:08Z</updated>
+    <author>
+      <name>Dylan Martin</name>
+      <uri>https://search.theregister.com/?author=Dylan%20Martin</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/intel_max/"/>
+    <title type="html">Intel takes on AMD and Nvidia with mad 'Max' chips for HPC</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;x86 giant goes all-in with high-bandwidth memory&lt;/h4&gt; &lt;p&gt;Intel's latest plan to ward off rivals from high-performance computing workloads involves a CPU with large stacks of high-bandwidth memory and new kinds of accelerators, plus its long-awaited datacenter GPU that will go head-to-head against Nvidia's most powerful chips.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224610</id>
+    <updated>2022-11-09T13:30:13Z</updated>
+    <author>
+      <name>Tobias Mann</name>
+      <uri>https://search.theregister.com/?author=Tobias%20Mann</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/hpe_goes_cray_for_intels/"/>
+    <title type="html">HPE goes Cray for Intel's Sapphire Rapids Xeons in latest supers</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Of course the IT giant's Epyc 4 systems will still ship first&lt;/h4&gt; &lt;p&gt;For the first time in years, Intel's CPUs will be at the heart of Hewlett Packard Enterprise's Cray supercomputing platforms, following the launch of new systems based on the chipmaker's Sapphire Rapids Xeon Scalable processors in early 2023.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224618</id>
+    <updated>2022-11-09T12:42:04Z</updated>
+    <author>
+      <name>Paul Kunert</name>
+      <uri>https://search.theregister.com/?author=Paul%20Kunert</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/meta_redundancies_mark_zuckerberg/"/>
+    <title type="html">Unlucky for some: Meta chops 13% of global workforce</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Zuck admits biz recruited too hard during pandemic and decline in advertising forced his hand&lt;/h4&gt; &lt;p&gt;Meta is making more than of 11,000 employees redundant following the dramatic decline in profits and the subsequent share price dive at the end of last month.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224616</id>
+    <updated>2022-11-09T11:40:59Z</updated>
+    <author>
+      <name>Laura Dobberstein</name>
+      <uri>https://search.theregister.com/?author=Laura%20Dobberstein</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/chinas_first_domestic_singleaisle_jet/"/>
+    <title type="html">China's first domestic single-aisle jet, the C919, scores 300 orders</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Thousands behind Airbus and Boeing, but the backlogs of western airliners might sweeten the deal&lt;/h4&gt; &lt;p&gt;Commercial Aircraft Corp of China (Comac), the maker of China's domestically made single-aisle passenger jet – the C919 – has secured orders for 300 of the recently certified aircraft.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224604</id>
+    <updated>2022-11-09T10:35:11Z</updated>
+    <author>
+      <name>Liam Proven</name>
+      <uri>https://search.theregister.com/?author=Liam%20Proven</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/canonical_conference/"/>
+    <title type="html">Strong support for Snap and Ubuntu Core as Canonical meet IRL</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;&lt;i&gt;Reg&lt;/i&gt; FOSS desk chats with one of the core architects&lt;/h4&gt; &lt;p&gt;&lt;strong&gt;Ubuntu Summit&lt;/strong&gt;  Canonical remains committed to its Snap format as the coverage at its first public gathering in a few years shows.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224597</id>
+    <updated>2022-11-09T09:30:07Z</updated>
+    <author>
+      <name>Dan Robinson</name>
+      <uri>https://search.theregister.com/?author=Dan%20Robinson</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/ampere_one_chip_interview/"/>
+    <title type="html">Ampere says no changes to its Arm licensing as it readies new chips</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Whatever's happening with Qualcomm, server chip outfit says it knows of no tweaks to model&lt;/h4&gt; &lt;p&gt;&lt;strong&gt;Interview&lt;/strong&gt;  Arm-based server chip outfit Ampere's chief product officer says its licensing with Arm is not changing, as the company prepares to launch the latest processors built with its own fully custom core design.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224609</id>
+    <updated>2022-11-09T08:33:12Z</updated>
+    <author>
+      <name>Katyanna Quach</name>
+      <uri>https://search.theregister.com/?author=Katyanna%20Quach</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/microsofts_activision_eu/"/>
+    <title type="html">Microsoft's $69B deal to buy Activision Blizzard under investigation by EU regulators</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Officials are concerned acquisition could reduce competition and lock gamers to Xbox and Microsoft PCs&lt;/h4&gt; &lt;p&gt;The European Commission launched an antitrust investigation examining Microsoft's $69 billion acquisition of computer games maker Activision Blizzard on Tuesday.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224602</id>
+    <updated>2022-11-09T07:35:10Z</updated>
+    <author>
+      <name>Brandon Vigliarolo</name>
+      <uri>https://search.theregister.com/?author=Brandon%20Vigliarolo</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/quasar_star_big_bang/"/>
+    <title type="html">This ancient quasar may be the remains of the first-gen star that started us all</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Ah, so now we know who to blame for all of this&lt;/h4&gt; &lt;p&gt;Scientists taking a look at the second-most distant observed quasar believe it's actually the remnants of one of the universe's earliest stars – the so-called Population III stars that seeded the early universe with material that eventually formed life. …&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224615</id>
+    <updated>2022-11-09T06:54:14Z</updated>
+    <author>
+      <name>Simon Sharwood</name>
+      <uri>https://search.theregister.com/?author=Simon%20Sharwood</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/sysadmin_work_changed_by_covid/"/>
+    <title type="html">Boffins find COVID changed the way sysadmins work – probably for the worse</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Crisis mode led to more formal meetings and lists, which just make more useless work&lt;/h4&gt; &lt;p&gt;Researchers from Germany's Max-Planck-Institut für Informatik have studied how the COVID-19 pandemic impacted the way systems administrators work, and found the profession was negatively impacted.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224606</id>
+    <updated>2022-11-09T06:27:12Z</updated>
+    <author>
+      <name>Paul Kunert</name>
+      <uri>https://search.theregister.com/?author=Paul%20Kunert</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/cispe_ec_microsoft_complaint/"/>
+    <title type="html">Euro clouds lodge another complaint against Microsoft over anti-competitive licenses</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;CISPE says Redmond's recent concessions did not level the playing field&lt;/h4&gt; &lt;p&gt;&lt;strong&gt;Updated&lt;/strong&gt;  A trade group representing 24 cloud infrastructure providers in Europe is filing a formal competition complaint with the European Commission over Microsoft's licensing of software in the cloud.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224614</id>
+    <updated>2022-11-09T05:58:06Z</updated>
+    <author>
+      <name>Laura Dobberstein</name>
+      <uri>https://search.theregister.com/?author=Laura%20Dobberstein</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/lg_debuts_thin_malleable_screens/"/>
+    <title type="html">LG debuts thin malleable screens made from contact lens material</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The world may never be free of unsmashable ads&lt;/h4&gt; &lt;p&gt;LG Display has shown off a thin, lightweight, stretchable and twistable micro-LED screen – an innovation South Korea's Ministry of Trade, Industry and Energy (MOTIE) hopes will boost the nation's electronics industry.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224613</id>
+    <updated>2022-11-09T04:59:07Z</updated>
+    <author>
+      <name>Simon Sharwood</name>
+      <uri>https://search.theregister.com/?author=Simon%20Sharwood</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/ibm_storage_supply_chain/"/>
+    <title type="html">IBM so confident in supply chain, it's frozen storage prices and has freebies for late shipments</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Big Blue tries the Domino's approach&lt;/h4&gt; &lt;p&gt;IBM is so confident in its hardware supply chain that it's promised to ship storage arrays by the end of 2022 – and if it's late you get free software as compensation.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224612</id>
+    <updated>2022-11-09T03:29:10Z</updated>
+    <author>
+      <name>Simon Sharwood</name>
+      <uri>https://search.theregister.com/?author=Simon%20Sharwood</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/zoom_mail_calendar_cinema/"/>
+    <title type="html">Zoom adds email and calendar to its apps, to relieve the crushing burden of ALT-TAB</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Also teams up with cinema chain AMC to let you Zoom at the movies&lt;/h4&gt; &lt;p&gt;Zoom has decided to take on the software world's most dangerous mission: attempting to offer productivity tools that rival those bundled into Microsoft Office 365.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224608</id>
+    <updated>2022-11-09T01:16:14Z</updated>
+    <author>
+      <name>Simon Sharwood</name>
+      <uri>https://search.theregister.com/?author=Simon%20Sharwood</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/vmware_workspace_one_assist_critical_flaws/"/>
+    <title type="html">VMware warns of three critical holes in remote-control tool</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Anyone can pretend to be your Windows IT support and take command of staff devices&lt;/h4&gt; &lt;p&gt;VMware has revealed a terrible trio of critical-rated flaws in Workspace ONE Assist for Windows – a product used by IT and help desk staff to remotely take over and manage employees' devices.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224607</id>
+    <updated>2022-11-09T00:18:32Z</updated>
+    <author>
+      <name>Jessica Lyons Hardcastle</name>
+      <uri>https://search.theregister.com/?author=Jessica%20Lyons%20Hardcastle</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/09/microsoft_november_2022_patch_tuesday/"/>
+    <title type="html">Microsoft squashes six security bugs already exploited in the wild</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Plus: Fixes from Intel, AMD, Citrix and more&lt;/h4&gt; &lt;p&gt;&lt;strong&gt;Patch Tuesday&lt;/strong&gt;  November's Patch Tuesday also falls on election day in the US, so let's hope that democracy fares better than Microsoft, which reported six of today's bugs are already being exploited in the wild by miscreants.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224605</id>
+    <updated>2022-11-08T23:06:13Z</updated>
+    <author>
+      <name>Katyanna Quach</name>
+      <uri>https://search.theregister.com/?author=Katyanna%20Quach</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/08/nasa_sls_storm_nicole/"/>
+    <title type="html">With potential hurricane approaching, NASA leaves mega-rocket on launch pad</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Just call it the Sad Launch System&lt;/h4&gt; &lt;p&gt;NASA's plans to launch its Space Launch System (SLS) super rocket this November from the Kennedy Space Center may be foiled yet again if a tropical storm continues gaining strength on its predicted path toward Florida.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224583</id>
+    <updated>2022-11-08T22:00:06Z</updated>
+    <author>
+      <name>Tobias Mann</name>
+      <uri>https://search.theregister.com/?author=Tobias%20Mann</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/08/marvell_dx1500/"/>
+    <title type="html">Marvell's latest switch may not be fast but the timing is great</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;The chipmaker's Prestera DX1500 family brings Ethernet to OT networks&lt;/h4&gt; &lt;p&gt;At a rather pedestrian 10Gbps, Marvell's latest networking silicon isn't going to win any races. But then again the chipmaker's Prestera DX1500-series switch chips and Alaska E1781 PHYs aren't destined for your typical enterprise or campus network.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224601</id>
+    <updated>2022-11-08T21:15:07Z</updated>
+    <author>
+      <name>Tobias Mann</name>
+      <uri>https://search.theregister.com/?author=Tobias%20Mann</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/08/intels_raptor_canyon_nuc/"/>
+    <title type="html">Intel's top-spec Raptor Canyon NUC can double as a 700+W space heater</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Stay warm this winter by fragging some baddies&lt;/h4&gt; &lt;p&gt;Intel wants to put a small form factor space heater — err PC — on your desk with the launch of its 13th-Gen NUC Extreme platform, codenamed Raptor Canyon.…&lt;/p&gt;</summary>
+  </entry>
+  <entry>
+    <id>tag:theregister.com,2005:story224603</id>
+    <updated>2022-11-08T20:30:09Z</updated>
+    <author>
+      <name>Jessica Lyons Hardcastle</name>
+      <uri>https://search.theregister.com/?author=Jessica%20Lyons%20Hardcastle</uri>
+    </author>
+    <link rel="alternate" type="text/html" href="https://go.theregister.com/feed/www.theregister.com/2022/11/08/government_cyber_insurance/"/>
+    <title type="html">Swiss Re wants government bail out as cybercrime insurance costs spike</title>
+    <summary type="html" xml:base="https://www.theregister.com/">&lt;h4&gt;Giant forecasts premiums rising to $23b by 2025&lt;/h4&gt; &lt;p&gt;As insurance companies struggle to stay afloat amid rising cyber claims, Swiss Re has recommended a public-private partnership insurance scheme with one option being a government-backed fund to help fill the coverage gap.…&lt;/p&gt; &lt;p&gt;&lt;!--#include virtual='/data_centre/_whitepaper_textlinks_top.html' --&gt;&lt;/p&gt;</summary>
+  </entry>
+</feed>

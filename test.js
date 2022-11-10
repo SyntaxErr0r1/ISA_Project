@@ -3,12 +3,26 @@
  * 
  */
 
-/** START OF PART FROM MDN */
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
+const { exit } = require('process');
 var exec = require('child_process').exec;
 
+let args = process.argv.slice(2);
+
+const waitFlag = args.includes('--wait')
+const verboseFlag = args.includes('--verbose');
+
+if(args.includes('--help') || args.includes('-h')){
+  console.log("Usage: node test.js [--wait] [--verbose] [--help]");
+  console.log("  --wait: Keep the server running after the tests are done. (must be killed manually)");
+  console.log("  --verbose: Print verbose test results");
+  console.log("  --help: Print this help text");
+  exit(0);
+}
+
+/** START OF PART FROM MDN */
 const PORT = 0;
 
 const MIME_TYPES = {
@@ -54,8 +68,10 @@ var srv = http.createServer(async (req, res) => {
   console.log(`Server running at http://127.0.0.1:${srv.address().port}/`);
   let results = await performTests();
 
-  printResults(results);
-  srv.close();
+  printResults(results, verboseFlag);
+  
+  if(!waitFlag)
+    srv.close();
 });
 
 
@@ -69,12 +85,10 @@ async function performTests() {
 
     testFiles = files.filter(file => file.endsWith('.json'));
 
-    console.log("Test files: ", testFiles);
-
     let results = [];
 
     for(const file of testFiles) {
-      // Make one pass and make the file complete
+
       let fileNoExt = file.replace('.json', '');
       let testPath = path.join(STATIC_PATH, file);
       let testFile = fs.readFileSync(testPath, 'utf8');
@@ -82,16 +96,24 @@ async function performTests() {
       
 
       let feedOriginal = test.feedFile;
+      let feedUrl = test.feedUrl;
 
-      let feedLines = feedOriginal.map( line => `http://localhost:${srv.address().port}/${line}`);
+      // Feed file stuff
+      if(feedOriginal){
+        let feedLines = feedOriginal.map( line => `http://localhost:${srv.address().port}/${line}`);
+        let feed = feedLines.join('\n');
+        fs.writeFileSync(path.join(STATIC_PATH,`${fileNoExt}.feed`), feed);
+        
+      }else if(feedUrl){
+        test.args = test.args.replace('FEEDURL', `http://localhost:${srv.address().port}/${feedUrl}`);
+      }else{
+        console.log(`No feed file or url specified. (Skipping test ${fileNoExt}`);
+        continue;
+      }
 
-      let feed = feedLines.join('\n');
-      fs.writeFileSync(path.join(STATIC_PATH,`${fileNoExt}.feed`), feed);
-      
       let executionResult = await runTest(test);
-
       let result = new TestResult();
-
+      
       //determine if the test passed or failed
       if(test.returnCode == 0){
         let expectedPath = path.join(STATIC_PATH, `${fileNoExt}.out`);
@@ -109,6 +131,7 @@ async function performTests() {
       
       result.testName = fileNoExt;
       result.executionResult = executionResult;
+      result.expectedReturnCode = test.returnCode;
 
       results.push(result);
     }
@@ -121,6 +144,7 @@ class TestResult {
     this.testName = "";
     this.executionResult = null;
     this.passed = false;
+    this.expectedReturnCode = 0;
   }
 }
 
@@ -128,6 +152,7 @@ class ExecutionResult {
   constructor() {
     this.returnCode = 0;
     this.stdout = '';
+    this.stderr = '';
   }
 }
 
@@ -137,16 +162,6 @@ function isOutputCorrect(stdout, expected) {
   return stdout == expected;
 }
 
-function printResults(results){
-  console.log("======= Test results =======");
-  for(const result of results){
-    console.log(`Test ${result.testName}: ${result.passed ? "\x1b[32mOK" : "\x1b[1m\x1b[31mFAIL"}\x1b[0m`);
-  }
-  console.log("========= Summary =========");
-  let passed = results.filter(result => result.passed);
-  let failed = results.filter(result => !result.passed);
-  console.log(`Passed: ${passed.length}/${results.length}`);
-}
 
 async function runTest(test) {
   let args = test.args;
@@ -154,13 +169,25 @@ async function runTest(test) {
     exec("./feedreader "+args, (error, stdout, stderr) => {
       let result = new ExecutionResult();
       
-      if (error) {
-        result.returnCode = error.code;
-      }else{
-        result.returnCode = 0;
-      }
+      result.returnCode = error ? error.code : 0;
       result.stdout = stdout;
+      result.stderr = stderr;
+
       resolve(result);
     });
   });
+}
+
+function printResults(results, verbose) {
+  console.log("======= Test results =======");
+  for(const result of results){
+    console.log(`Test ${result.testName}: ${result.passed ? "\x1b[32mOK" : "\x1b[1m\x1b[31mFAIL"}\x1b[0m`);
+  }
+
+  console.log("========= Summary =========");
+  let passed = results.filter(result => result.passed);
+  console.log(`Passed: ${passed.length}/${results.length}`);
+
+  if(verbose)
+    console.log("Verbose info:", results);
 }

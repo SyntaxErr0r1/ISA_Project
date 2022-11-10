@@ -84,15 +84,12 @@ int main(int argc, char *argv[])
         switch(c)
         {
             case 'T':
-                fprintf(stderr, "showTime\n");
                 config.show_time = true;
                 break;
             case 'a':
-                fprintf(stderr, "showAuthor\n");
                 config.show_author = true;
                 break;
             case 'u':
-                fprintf(stderr, "showUrls\n");
                 config.show_urls = true;
                 break;
             case 'f':

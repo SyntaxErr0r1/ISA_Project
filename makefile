@@ -15,5 +15,7 @@ parser.o: parser.cpp
 	$(CC) $(CFLAGS) -c parser.cpp $(LDFLAGS)
 downloader.o: downloader.cpp
 	$(CC) $(CFLAGS) -c downloader.cpp $(LDFLAGS)
+test: $(TARGET)
+	node test.js
 clean:
 	rm -f $(OBJS) $(TARGET)

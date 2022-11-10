@@ -1,0 +1,10 @@
+{
+    "args": "-f tests/test1.feed -T -a -u",
+    "feedFile": [
+        "what-if.xkcd.com.xml"
+    ],
+    "feedUrl": [
+        "http://what-if.xkcd.com/feed.atom"
+    ],
+    "returnCode": 0
+}

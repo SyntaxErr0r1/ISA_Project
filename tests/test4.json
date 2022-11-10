@@ -1,0 +1,9 @@
+{
+    "args": "-f tests/test4.feed",
+    "feedFile": [
+        "www.theregister.com.xml",
+        "what-if.xkcd.com.xml",
+        "en.wikipedia.org.xml"
+    ],
+    "returnCode": 0
+}
