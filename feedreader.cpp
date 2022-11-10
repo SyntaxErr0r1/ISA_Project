@@ -45,6 +45,8 @@ void read_from_url(const char* url_add, std::string certfile, std::string certad
     string filename = DOWNLOAD_DIR;
     filename.append("temp.xml");
 
+    fprintf(stderr, "Downloading %s to %s\n", url_add, filename.c_str());
+
     if(url_location.is_https)
         download_https_feed(url_location, filename, certfile, certaddr);
     else
@@ -157,6 +159,9 @@ int main(int argc, char *argv[])
 
                 if (!tp.empty() && tp[tp.size() - 1] == '\r')
                     tp.erase(tp.size() - 1);
+
+                if(tp.empty() || tp.find_first_not_of(' ') == string::npos)
+                    continue;
 
                 read_from_url(tp.c_str(), certfile, certaddr, config);
             

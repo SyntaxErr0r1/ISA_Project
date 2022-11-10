@@ -158,13 +158,13 @@ void parse_news_feed_file(std::string location, struct parse_config config){
     // fprintf(stderr, "Reading from file %s\n", location.c_str());
     if((doc = xmlReadFile(location.c_str(), NULL, 0)) == NULL){
         fprintf(stderr, "Error: Could not open file %s\n", location.c_str());
-        exit(1);
+        return;
     }
 
     root = xmlDocGetRootElement(doc);
     if(root == NULL){
         fprintf(stderr, "Error: Could not get root element from file %s\n", location.c_str());
-        exit(1);
+        return;
     }
 
     /*
