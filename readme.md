@@ -33,6 +33,7 @@ Assignment:
 TODO:
   - ignore commented lines in feedfile
   - check if the entry title has already been printed before printing other info
+  - ignore error in parser (feed type unknown)
 
 Using HTTP/1.0 (because of weird strings before and after XML content when using 1.1)
 
@@ -62,8 +63,8 @@ The desired output information is printed in the order it is specified in the so
 Minimal openssl version tested: `OpenSSL 1.0.2k-fips`
 Testing & debugging has been done in following environments:
 - Debian 11 in WSL
-- freeBSD - eva.fit.vutbr.cz
-- CentOS - merlin.fit.vutbr.cz
+- freeBSD 13.1 - eva.fit.vutbr.cz
+- CentOS 7 - merlin.fit.vutbr.cz
 
 Feed sources used for testing (some of them): 
 

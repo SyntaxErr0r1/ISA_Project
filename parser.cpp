@@ -19,6 +19,7 @@ feed_type get_feed_type(xmlNode *root){
         type = FEED_TYPE_ATOM;
     }
     else{
+        //TODO: skip the file
         fprintf(stderr, "Error: Unknown feed type\n");
         exit(1);
     }

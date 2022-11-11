@@ -154,6 +154,9 @@ int main(int argc, char *argv[])
             string tp;
             while(getline(newfile, tp)){
 
+                if(tp[0] == '#')
+                    continue;
+
                 if (!tp.empty() && tp[tp.size() - 1] == '\r')
                     tp.erase(tp.size() - 1);
 
