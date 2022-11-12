@@ -1,0 +1,9 @@
+{
+    "args": "-C /etc/ssl/certs/ -f tests/testCert.feed",
+    "feedFile": [
+        "www.theregister.com.xml",
+        "what-if.xkcd.com.xml",
+        "en.wikipedia.org.xml"
+    ],
+    "returnCode": 0
+}

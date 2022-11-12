@@ -31,9 +31,9 @@ Assignment:
     https://www.vut.cz/studis/student.phtml?script_name=zadani_detail&apid=231021&zid=50242
 
 TODO:
-  - ignore commented lines in feedfile
+  <!-- - ignore commented lines in feedfile -->
   - check if the entry title has already been printed before printing other info
-  - ignore error in parser (feed type unknown)
+  <!-- - ignore error in parser (feed type unknown) -->
 
 Using HTTP/1.0 (because of weird strings before and after XML content when using 1.1)
 

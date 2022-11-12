@@ -18,11 +18,6 @@ feed_type get_feed_type(xmlNode *root){
         // fprintf(stderr, "Feed type: Atom\n");
         type = FEED_TYPE_ATOM;
     }
-    else{
-        //TODO: skip the file
-        fprintf(stderr, "Error: Unknown feed type\n");
-        exit(1);
-    }
     return type;
 }
 
@@ -84,10 +79,10 @@ void print_author_node(feed_type type, xmlNode *node){
     for (cur_node = node; cur_node; cur_node = cur_node->next) {
         if (cur_node->type == XML_ELEMENT_NODE) {
             if (check_node_name(type, cur_node, "name")) {
-                printf("Author name:  %s\n", get_node_content_string(cur_node).c_str());
+                printf("Autor:  %s\n", get_node_content_string(cur_node).c_str());
             }
             if (check_node_name(type, cur_node, "email")) {
-                printf("Author email: %s\n", get_node_content_string(cur_node).c_str());
+                printf("Autor (email): %s\n", get_node_content_string(cur_node).c_str());
             }else{
                 // printf("\n");
             }
@@ -176,6 +171,9 @@ void parse_news_feed_file(std::string location, struct parse_config config){
 
     if(type == FEED_TYPE_RSS){
         root = get_channel_node(type, root);
+    }else if(type == FEED_TYPE_UNKNOWN){
+        fprintf(stderr, "Error: Could not determine feed type (skipping file)\n");
+        return;
     }
 
     /*

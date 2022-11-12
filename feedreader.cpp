@@ -23,9 +23,8 @@ void debug_print(const char *msg){
  * @brief prints an error message to stderr
  * 
  */
-void error_print(const char *msg){
-    fprintf(stderr, "Error: %s", msg);
-    exit(1);
+void error_print(string msg){
+    fprintf(stderr, "Error: %s\n", msg.c_str());
 }
 
 /**
@@ -41,18 +40,30 @@ void error_print(const char *msg){
 void read_from_url(const char* url_add, std::string certfile, std::string certaddr, struct parse_config config){
     struct url url_location = parse_url(url_add);
 
-    // string filename = DOWNLOAD_DIR + url_location.host + ".xml";
+    if (!url_location.is_valid){
+        string msg = "Invalid URL: " + string(url_add);
+        error_print(msg);
+        return;
+    }
+
     string filename = DOWNLOAD_DIR;
     filename.append("temp.xml");
 
-    fprintf(stderr, "Downloading %s to %s\n", url_add, filename.c_str());
+    // fprintf(stderr, "Downloading %s to %s\n", url_add, filename.c_str());
+
+    bool download_success = false;
 
     if(url_location.is_https)
-        download_https_feed(url_location, filename, certfile, certaddr);
+        download_success = download_https_feed(url_location, filename, certfile, certaddr);
     else
-        download_http_feed(url_location, filename);
+        download_success = download_http_feed(url_location, filename);
 
-    parse_news_feed_file(filename, config);
+    if(download_success){
+        parse_news_feed_file(filename, config);
+    }else{
+        string msg = "Failed to download: " + string(url_add);
+        error_print(msg);
+    }
 }
 
 int main(int argc, char *argv[])
@@ -79,7 +90,8 @@ int main(int argc, char *argv[])
     }
     
     int c;
-    while ((c = getopt(argc, argv, ":auTf:c:C:h")) != -1)
+    int option_index = 0;
+    while ((c = getopt_long(argc, argv, ":auTf:c:C:h", {}, &option_index)) != -1)
     {
         switch(c)
         {

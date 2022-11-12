@@ -1,5 +1,5 @@
 {
-    "args": "-f -T -a -u",
+    "args": "-f thisFileDoesNotExist -a -u",
     "feedFile": [
         "what-if.xkcd.com.xml"
     ],

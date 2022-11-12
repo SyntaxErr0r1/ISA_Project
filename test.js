@@ -1,4 +1,4 @@
-/** Large part of the code (the server part) is from:
+/** Part of the code (the server part) is from:
  *  https://developer.mozilla.org/en-US/docs/Learn/Server-side/Node_server_without_framework
  * 
  */
@@ -13,11 +13,13 @@ let args = process.argv.slice(2);
 
 const waitFlag = args.includes('--wait')
 const verboseFlag = args.includes('--verbose');
+const noCleanFlag = args.includes('--no-clean');
 
 if(args.includes('--help') || args.includes('-h')){
   console.log("Usage: node test.js [--wait] [--verbose] [--help]");
   console.log("  --wait: Keep the server running after the tests are done. (must be killed manually)");
   console.log("  --verbose: Print verbose test results");
+  console.log("  --no-clean: Do not clean the generated feed files")
   console.log("  --help: Print this help text");
   exit(0);
 }
@@ -65,13 +67,17 @@ var srv = http.createServer(async (req, res) => {
 
   /** END OF PART FROM MDN */
 }).listen(PORT, async () => { 
-  console.log(`Server running at http://127.0.0.1:${srv.address().port}/`);
+  console.log(`Server running at http://localhost:${srv.address().port}/`);
   let results = await performTests();
 
   printResults(results, verboseFlag);
+
+  if(!noCleanFlag)
+    cleanFeedFiles();
   
   if(!waitFlag)
     srv.close();
+
 });
 
 
@@ -115,7 +121,7 @@ async function performTests() {
       let result = new TestResult();
       
       //determine if the test passed or failed
-      if(test.returnCode == 0){
+      if(test.returnCode == 0 && executionResult.returnCode == 0){
         let expectedPath = path.join(STATIC_PATH, `${fileNoExt}.out`);
         let expectedOutput;
         try{
@@ -190,4 +196,18 @@ function printResults(results, verbose) {
 
   if(verbose)
     console.log("Verbose info:", results);
+}
+
+function cleanFeedFiles() {
+  const files = fs.readdirSync(STATIC_PATH);
+  if (!files) {
+    console.error("Could not list the directory.", err);
+    reject(err);
+  }
+
+  testFiles = files.filter(file => file.endsWith('.feed'));
+
+  for(const file of testFiles) {
+    fs.unlinkSync(path.join(STATIC_PATH, file));
+  }
 }

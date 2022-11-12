@@ -16,6 +16,7 @@ struct url {
     string port;
     string resource;
     bool is_https;
+    bool is_valid;
 };
 
 /**
@@ -32,7 +33,7 @@ void download_error_print(const char *msg);
  * @param certfile
  * @param certaddr 
  */
-void download_https_feed(struct url url, string filename, string certfile, string certaddr);
+bool download_https_feed(struct url url, string filename, string certfile, string certaddr);
 
 /**
  * @brief downloads http feed into file
@@ -40,7 +41,7 @@ void download_https_feed(struct url url, string filename, string certfile, strin
  * @param url the HTTP resource
  * @param filename the name of the save file
  */
-void download_http_feed(struct url url, string filename);
+bool download_http_feed(struct url url, string filename);
 
 /**
  * @brief returns structure containing information about the URL

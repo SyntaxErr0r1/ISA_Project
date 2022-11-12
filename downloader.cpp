@@ -1,6 +1,6 @@
 #include "downloader.hpp"
 
-void download_https_feed(struct url url, string filename,  string certfile, string certaddr){
+bool download_https_feed(struct url url, string filename,  string certfile, string certaddr){
 
     SSL_library_init();
 
@@ -20,10 +20,16 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     const SSL_METHOD* method = TLS_method();
     #endif
     
-    if(!(NULL != method)) download_error_print("SSL/TLS failed, SSL_Method...");
+    if(!(NULL != method)){
+        download_error_print("TLS method not found");
+        return false; 
+    }    
 
     ctx = SSL_CTX_new(method);
-    if(!(ctx != NULL)) download_error_print("SSL/TLS failed, SSL_CTX_new...");
+    if(!(ctx != NULL)) {
+        download_error_print("SSL context not created");
+        return false;
+    }
 
     // SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, verify_callback);
 
@@ -40,48 +46,78 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
     if(certfile != ""){
         // SSL_CTX_load_verify_file(ctx, certfile.c_str());
         res = SSL_CTX_load_verify_locations(ctx, certfile.c_str(),NULL);
-        if(!(res == 1)) download_error_print("SSL/TLS failed, SSL_CTX_load_verify_locations (certfile)...");
+        if(!(res == 1)){
+            download_error_print("Could not load certificate file");
+            return false;
+        }
     }else if(certaddr != ""){
         res = SSL_CTX_load_verify_locations(ctx,NULL,certaddr.c_str());
-        if(!(res == 1)) download_error_print("SSL/TLS failed, SSL_CTX_load_verify_locations (certaddr)...");
+        if(!(res == 1)){
+            download_error_print("Could not load certificate directory");
+            return false;
+        }
     }
     else{
         res = SSL_CTX_set_default_verify_paths(ctx);
     }
 
-
-    if(!(1 == res)) download_error_print("SSL/TLS failed, SSL_CTX_load_verify_locations...");
-
     web = BIO_new_ssl_connect(ctx);
-    if(!(web != NULL)) download_error_print("SSL/TLS failed, BIO_new_sll_connect...");
+    if(!(web != NULL)){
+        download_error_print("Could not create BIO");
+        return false;
+    }
 
     res = BIO_set_conn_hostname(web, (url.host + ":" + url.port).c_str());
-    if(!(1 == res)) download_error_print("SSL/TLS failed, BIO_set_conn_hostname...");
+    if(!(1 == res)) {
+        download_error_print("Could not set hostname");
+        return false;
+    }
 
     BIO_get_ssl(web, &ssl);
-    if(!(ssl != NULL)) download_error_print("SSL/TLS failed, BIO_get_ssl...");
+    if(!(ssl != NULL)) {
+        download_error_print("Could not get SSL");
+        return false;
+    }
 
     const char* const PREFERRED_CIPHERS = "HIGH:!aNULL:!kRSA:!PSK:!SRP:!MD5:!RC4";
     res = SSL_set_cipher_list(ssl, PREFERRED_CIPHERS);
-    if(!(1 == res)) download_error_print("SSL/TLS failed, SSL_set_cipher_list...");
+    if(!(1 == res)) {
+        download_error_print("Could not set cipher list");
+        return false;
+    }
 
     res = SSL_set_tlsext_host_name(ssl, url.host.c_str());
-    if(!(1 == res)) download_error_print("SSL/TLS failed, SSL_set_tlsext_host_name...");
+    if(!(1 == res)) {
+        download_error_print("Could not set TLS extension host name");
+        return false;
+    }
 
     res = BIO_do_connect(web);
-    if(!(1 == res)) download_error_print("SSL/TLS failed, BIO_do_connect...");
+    if(!(1 == res)) {
+        download_error_print("Could not connect to host");
+        return false;
+    }
 
     res = BIO_do_handshake(web);
-    if(!(1 == res)) download_error_print("SSL/TLS failed, BIO_do_handshake...");
+    if(!(1 == res)) {
+        download_error_print("Could not perform TLS handshake");
+        return false;
+    }
 
     // Verify a server certificate was presented during the negotiation
     X509* cert = SSL_get_peer_certificate(ssl);
     if(cert) { X509_free(cert); } /* Free immediately */
-    if(NULL == cert) download_error_print("SSL/TLS failed, SLL_get_peer_certificate...");
+    if(NULL == cert) {
+        download_error_print("Could not get a certificate from the host");
+        return false;
+    }
 
-    // Step 2: verify the result of chain verification
+    // Verify the result of chain verification
     res = SSL_get_verify_result(ssl);
-    if(!(X509_V_OK == res)) download_error_print("SSL/TLS failed, SSL_get_verify_result...");
+    if(!(X509_V_OK == res)) {
+        download_error_print("Could not verify host certificate");
+        return false;
+    }
 
     string request = ("GET /" + url.resource + " HTTP/1.0\r\n"
               "Host: " + url.host + "\r\n"
@@ -102,20 +138,28 @@ void download_https_feed(struct url url, string filename,  string certfile, stri
 
     if(NULL != ctx)
         SSL_CTX_free(ctx);
+
+    return true;
 }
 
 
 
-void download_http_feed(struct url url, string filename){
+bool download_http_feed(struct url url, string filename){
 
     BIO *web = NULL; 
     long res = 1;
 
     web = BIO_new_connect((url.host + ":" + url.port).c_str());
-    if(!(web != NULL)) download_error_print("HTTP failed, BIO_new_connect...");
+    if(!(web != NULL)) {
+        download_error_print("Could not create BIO");
+        return false;
+    }
 
     res = BIO_do_connect(web);
-    if(!(1 == res)) download_error_print("HTTP failed, BIO_do_connect...");
+    if(!(1 == res)){
+        download_error_print("Could not connect to host");
+        return false;
+    }
 
     BIO_puts(web, ("GET /" + url.resource + " HTTP/1.0\r\n"
               +"Host: " + url.host + "\r\n"
@@ -131,6 +175,8 @@ void download_http_feed(struct url url, string filename){
 
     if(web != NULL)
         BIO_free_all(web);
+
+    return true;
 
 }
 
@@ -160,8 +206,7 @@ string get_body(BIO *web){
 }
 
 void download_error_print (const char *msg){
-    fprintf(stderr, "Download error: %s", msg);
-    exit(1);
+    fprintf(stderr, "Download error: %s\n", msg);
 }
 
 struct url parse_url(string url) {
@@ -170,6 +215,7 @@ struct url parse_url(string url) {
     string port;
     string resource;
     bool is_https = false;
+    bool is_valid = true;
     size_t pos = url.find("://");
     
     // check if https or http
@@ -180,6 +226,7 @@ struct url parse_url(string url) {
             is_https = false;
         }else{
             download_error_print("Invalid protocol");
+            is_valid = false;
         }
     } else {
         is_https = false;
@@ -211,6 +258,7 @@ struct url parse_url(string url) {
     parsed_url.port = port;
     parsed_url.resource = resource;
     parsed_url.is_https = is_https;
+    parsed_url.is_valid = is_valid;
 
     return parsed_url;
 }
