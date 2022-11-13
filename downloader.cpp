@@ -22,12 +22,14 @@ bool download_https_feed(struct url url, string filename,  string certfile, stri
     
     if(!(NULL != method)){
         download_error_print("TLS method not found");
+        https_download_cleanup(ctx, web);
         return false; 
     }    
 
     ctx = SSL_CTX_new(method);
     if(!(ctx != NULL)) {
         download_error_print("SSL context not created");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
@@ -48,12 +50,14 @@ bool download_https_feed(struct url url, string filename,  string certfile, stri
         res = SSL_CTX_load_verify_locations(ctx, certfile.c_str(),NULL);
         if(!(res == 1)){
             download_error_print("Could not load certificate file");
+            https_download_cleanup(ctx, web);
             return false;
         }
     }else if(certaddr != ""){
         res = SSL_CTX_load_verify_locations(ctx,NULL,certaddr.c_str());
         if(!(res == 1)){
             download_error_print("Could not load certificate directory");
+            https_download_cleanup(ctx, web);
             return false;
         }
     }
@@ -64,18 +68,21 @@ bool download_https_feed(struct url url, string filename,  string certfile, stri
     web = BIO_new_ssl_connect(ctx);
     if(!(web != NULL)){
         download_error_print("Could not create BIO");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
     res = BIO_set_conn_hostname(web, (url.host + ":" + url.port).c_str());
     if(!(1 == res)) {
         download_error_print("Could not set hostname");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
     BIO_get_ssl(web, &ssl);
     if(!(ssl != NULL)) {
         download_error_print("Could not get SSL");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
@@ -83,6 +90,7 @@ bool download_https_feed(struct url url, string filename,  string certfile, stri
     res = SSL_set_cipher_list(ssl, PREFERRED_CIPHERS);
     if(!(1 == res)) {
         download_error_print("Could not set cipher list");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
@@ -95,12 +103,14 @@ bool download_https_feed(struct url url, string filename,  string certfile, stri
     res = BIO_do_connect(web);
     if(!(1 == res)) {
         download_error_print("Could not connect to host");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
     res = BIO_do_handshake(web);
     if(!(1 == res)) {
         download_error_print("Could not perform TLS handshake");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
@@ -109,6 +119,7 @@ bool download_https_feed(struct url url, string filename,  string certfile, stri
     if(cert) { X509_free(cert); } /* Free immediately */
     if(NULL == cert) {
         download_error_print("Could not get a certificate from the host");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
@@ -116,11 +127,13 @@ bool download_https_feed(struct url url, string filename,  string certfile, stri
     res = SSL_get_verify_result(ssl);
     if(!(X509_V_OK == res)) {
         download_error_print("Could not verify host certificate");
+        https_download_cleanup(ctx, web);
         return false;
     }
 
     string request = ("GET /" + url.resource + " HTTP/1.0\r\n"
               "Host: " + url.host + "\r\n"
+              "Content-type: application/xml\r\n"
               "Connection: close\r\n\r\n");
 
     BIO_puts(web, request.c_str());
@@ -133,14 +146,22 @@ bool download_https_feed(struct url url, string filename,  string certfile, stri
 
     file.close();
 
-    if(web != NULL)
-        BIO_free_all(web);
-
-    if(NULL != ctx)
-        SSL_CTX_free(ctx);
+    https_download_cleanup(ctx, web);
 
     return true;
 }
+
+void https_download_cleanup(SSL_CTX* ctx, BIO* web){
+    if(web != NULL)
+        BIO_free_all(web);
+    if(ctx != NULL)
+        SSL_CTX_free(ctx);
+    ERR_free_strings();
+    EVP_cleanup();
+    CRYPTO_cleanup_all_ex_data();
+}
+
+
 
 
 
@@ -152,17 +173,22 @@ bool download_http_feed(struct url url, string filename){
     web = BIO_new_connect((url.host + ":" + url.port).c_str());
     if(!(web != NULL)) {
         download_error_print("Could not create BIO");
+        if(web != NULL)
+            BIO_free_all(web);
         return false;
     }
 
     res = BIO_do_connect(web);
     if(!(1 == res)){
         download_error_print("Could not connect to host");
+        if(web != NULL)
+            BIO_free_all(web);
         return false;
     }
 
     BIO_puts(web, ("GET /" + url.resource + " HTTP/1.0\r\n"
               +"Host: " + url.host + "\r\n"
+              +"Content-type: application/xml\r\n"
               +"Connection: close\r\n\r\n").c_str());
     
     string xml = get_body(web);
@@ -193,6 +219,7 @@ string get_body(BIO *web){
         }
     } while (len > 0 || BIO_should_retry(web));
 
+    // fprintf(stderr, "Response: %s\n", output.c_str());
     //remove the header
     size_t pos = output.find("\r\n\r\n");
 

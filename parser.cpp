@@ -98,10 +98,13 @@ void print_author_node(feed_type type, xmlNode *node){
  */
 void parse_item(feed_type type, xmlNode *item, struct parse_config config){
     for(xmlNode *cur_node = item->children; cur_node; cur_node = cur_node->next){
-            if(check_node_name(type, cur_node,"title")){
-                printf("%s\n", get_node_content_string(cur_node).c_str());
-            }
-            else if(check_node_name(type, cur_node,"link")){
+        if(check_node_name(type, cur_node,"title")){
+            printf("%s\n", get_node_content_string(cur_node).c_str());
+            break;
+        }
+    }
+    for(xmlNode *cur_node = item->children; cur_node; cur_node = cur_node->next){
+            if(check_node_name(type, cur_node,"link")){
                 if(config.show_urls){
                     if(type == FEED_TYPE_ATOM){
                         xmlChar *href = xmlGetProp(cur_node, (const xmlChar *)"href");

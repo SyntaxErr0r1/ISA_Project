@@ -58,3 +58,11 @@ struct url parse_url(string url);
  * @return string containing the body without the header
  */
 string get_body(BIO *web);
+
+/**
+ * @brief dealocates the BIO* and SLL_CTX*
+ * 
+ * @param ctx 
+ * @param web 
+ */
+void https_download_cleanup(SSL_CTX* ctx, BIO* web);
