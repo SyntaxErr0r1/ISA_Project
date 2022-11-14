@@ -1,6 +1,8 @@
 # Feed Reader
 Author: Juraj Dedič, xdedic07
 
+Date: 14. 11. 2022
+
 Project for ISA at FIT VUT
 
 ## Description
@@ -22,20 +24,31 @@ This program reads the provided **RSS 2.0** or **Atom feed**. The input can be p
  - certaddr - directory containing certificates
 
 ## Compilation
-- can be compiled using `make`
-- the program is compiled by GNU c++ compiler
-- requires libxml2 and openssl
+- program can be compiled using `make`
+- the program is compiled by GNU C++ compiler
+- requires libxml2 and openssl (`1.0.2^`)
 
 
-Assignment:
-    https://www.vut.cz/studis/student.phtml?script_name=zadani_detail&apid=231021&zid=50242
+## Files
+List program of files:
+- `feedreader.{cpp|hpp}` - main program function, parses arguments and calls other functions
+- `downloader.{cpp|hpp}` - downloads requested files using HTTP or HTTPS
+- `parser.{cpp|hpp}` - parses and outputs the information from the feed
 
-TODO:
+Other files included:
+- `makefile` - used for compilation
+- `test.js` - test script
+- `tests/` - contains the test cases and test XML files
+- `README.md` - this markdown file
+- `manual.pdf` - documentation (in Slovak) 
+
+
+<!-- Assignment:
+    https://www.vut.cz/studis/student.phtml?script_name=zadani_detail&apid=231021&zid=50242 -->
+<!-- TODO: -->
   <!-- - ignore commented lines in feedfile -->
-  - check if the entry title has already been printed before printing other info
+  <!-- - check if the entry title has already been printed before printing other info -->
   <!-- - ignore error in parser (feed type unknown) -->
-
-Using HTTP/1.0 (because of weird strings before and after XML content when using 1.1)
 
 ## Operation
 
@@ -51,13 +64,13 @@ If HTTPS is used, the program will use the relevant TLS functions and validate t
 The program then requests the resource using HTTP version `1.0`. This version was chosen because the reponse in `HTTP/1.1` is affected probably by chunked transfer encoding when using openssl.
 
 The resource is downloaded using openssl functions (also when not using TLS).
-Then the resource is loaded from the openssl BIO into std::string and the body (the XML) is separated from the response. The XML is then written into `./temp/temp.xml`
+Then the resource is loaded from the openssl BIO into std::string and the body (the XML) is separated from the response. The XML is then written into `./temp/temp.xml`. (Note: the program does not take into account cases where response 301 is received meaning the resource was moved. In such case the file won't be parsed)
 
 The file is then opened by the parser and the type of the feed (either RSS 2.0 or Atom) is determined. 
 The parser iterates through the nodes and finds the relevant nodes and their atributes when necessary.
 In cases where the node names or the attributes are different in Atom or RSS 2.0, the node names will be converted to the Atom format for comparison inside the code.
 
-The desired output information is printed in the order it is specified in the source XML.
+The desired output information is printed in the order it is specified in the source XML. (Except for title which is always first)
 
 ## Testing
 Minimal openssl version tested: `OpenSSL 1.0.2k-fips`
@@ -66,7 +79,7 @@ Testing & debugging has been done in following environments:
 - freeBSD 13.1 - eva.fit.vutbr.cz
 - CentOS 7 - merlin.fit.vutbr.cz
 
-Feed sources used for testing (some of them): 
+Feed sources used for testing: 
 
 RSS :
 - https://en.wikipedia.org:443/w/api.php?hidebots=1&days=7&limit=3&hidewikidata=1&action=feedrecentchanges&feedformat=rss
